@@ -17,7 +17,6 @@
 #include    "driverAt45.h"
 #include    "functionCP.h"
 #include    "DriverMFRC522cp.h" // изм. 30.03.22
-#include    "crc8.h"
 #include    "FunctionRS485_K.h"
 #include    "functionUART24.h"
 
@@ -65,9 +64,6 @@ int main(void) {
     ModeRs = ReadCharFromAt45(2047,250);   // изм. 13.04.22
     SelectModeRs485(ModeRs);              // изм. 13.04.22
     LCD_EN = 1;
-//    printf("restЪЪЪ"); // жчочлпуомачлльх ъюомъ ТИ
-//    printf("restЪЪЪ"); // гарантированный сброс ЖК
-    
     Interval._1s = 0;
     TempDirectRs = 0;
     TempCommandRs = 0;
@@ -75,11 +71,6 @@ int main(void) {
     WaitingScreen = 0;
     while(1){
         while(CurrentScreen > 9 && CurrentScreen != 15 && CurrentScreen != 255){
-
-//            if(ScreenLast != CurrentScreen){
-//                xprintf("%u->%u dir %u\r",ScreenLast,CurrentScreen,SelectedDirection);
-//                ScreenLast = CurrentScreen;
-//            }
             if(Interval._CheckStatusBU){
                 (void)CheckStatusBU201106(DirectControl);
                 //флаг Interval._CheckStatusBU снимается в функции CheckStatusBU4() 
@@ -271,14 +262,6 @@ int main(void) {
         }
         TerminalLcd();
 // изм. 01.04.22       
-//        if(Interval._100ms){
-////            xprintf("Timer  %u\r",Timer++);
-//            if(RsMode !=(UINT8)ControlFlagCP.CurrentModeRs){
-//                RsMode =(UINT8)ControlFlagCP.CurrentModeRs;
-//                xprintf("ModeRs  %u\r",RsMode);
-//            }
-//            Interval._100ms = 0;
-//        }
         switch(CurrentScreen){
             case 0:
                 if(LcdFlag.NewPage){
@@ -292,7 +275,6 @@ int main(void) {
                 }
                 if(Interval._1s){
                     if(!SerialNumberKid[NumberKID].SerialKid){ // изм. 20.06.22
-//                        printf("page4.b0.txt=\"ЗАПИСАТЬ\"ЪЪЪ");
                         SerialNumberKid[0].SerialKid = 0;
                         FlagMFRC522._ReadCart = 1;
                         FlagMFRC522._newCart = 0;
@@ -338,9 +320,6 @@ int main(void) {
                 }
                 break;
         }
-//=============        
-// изм. 01.04.22        DisplayReadArhiv0525(); 
-// изм. 01.04.22        TransmittArhivUSB();
     }
     return 0;
 }

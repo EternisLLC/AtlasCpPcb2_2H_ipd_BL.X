@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2HAver_ipd_230202BL.X/functionCP_220419.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/interruptTimer24.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/atlasCPmain_211227.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/functionCP_220419.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/functionRS485_K_220118.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/globalVarAtlasCP.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/init256GA106AtlasCP.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/terminalCP.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/DriverMFRC522cp.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/functionUART24.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/driverAt45CP.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2H_ipd_BL.X/funcia_spi.c</file>
         </group>
     </open-files>
 </project-private>

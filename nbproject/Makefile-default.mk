@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=DriverMFRC522cp.c crc8.c driverAt45CP.c funcia_spi.c functionCP_220419.c functionRS485_K_220118.c functionUART24.c globalVarAtlasCP.c init256GA106AtlasCP.c interruptTimer24.c terminalCP.c atlasCPmain_211227.c ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S
+SOURCEFILES_QUOTED_IF_SPACED=DriverMFRC522cp.c driverAt45CP.c funcia_spi.c functionCP_220419.c functionRS485_K_220118.c functionUART24.c globalVarAtlasCP.c init256GA106AtlasCP.c interruptTimer24.c terminalCP.c atlasCPmain_211227.c ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/DriverMFRC522cp.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/driverAt45CP.o ${OBJECTDIR}/funcia_spi.o ${OBJECTDIR}/functionCP_220419.o ${OBJECTDIR}/functionRS485_K_220118.o ${OBJECTDIR}/functionUART24.o ${OBJECTDIR}/globalVarAtlasCP.o ${OBJECTDIR}/init256GA106AtlasCP.o ${OBJECTDIR}/interruptTimer24.o ${OBJECTDIR}/terminalCP.o ${OBJECTDIR}/atlasCPmain_211227.o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/DriverMFRC522cp.o.d ${OBJECTDIR}/crc8.o.d ${OBJECTDIR}/driverAt45CP.o.d ${OBJECTDIR}/funcia_spi.o.d ${OBJECTDIR}/functionCP_220419.o.d ${OBJECTDIR}/functionRS485_K_220118.o.d ${OBJECTDIR}/functionUART24.o.d ${OBJECTDIR}/globalVarAtlasCP.o.d ${OBJECTDIR}/init256GA106AtlasCP.o.d ${OBJECTDIR}/interruptTimer24.o.d ${OBJECTDIR}/terminalCP.o.d ${OBJECTDIR}/atlasCPmain_211227.o.d ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/DriverMFRC522cp.o ${OBJECTDIR}/driverAt45CP.o ${OBJECTDIR}/funcia_spi.o ${OBJECTDIR}/functionCP_220419.o ${OBJECTDIR}/functionRS485_K_220118.o ${OBJECTDIR}/functionUART24.o ${OBJECTDIR}/globalVarAtlasCP.o ${OBJECTDIR}/init256GA106AtlasCP.o ${OBJECTDIR}/interruptTimer24.o ${OBJECTDIR}/terminalCP.o ${OBJECTDIR}/atlasCPmain_211227.o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/DriverMFRC522cp.o.d ${OBJECTDIR}/driverAt45CP.o.d ${OBJECTDIR}/funcia_spi.o.d ${OBJECTDIR}/functionCP_220419.o.d ${OBJECTDIR}/functionRS485_K_220118.o.d ${OBJECTDIR}/functionUART24.o.d ${OBJECTDIR}/globalVarAtlasCP.o.d ${OBJECTDIR}/init256GA106AtlasCP.o.d ${OBJECTDIR}/interruptTimer24.o.d ${OBJECTDIR}/terminalCP.o.d ${OBJECTDIR}/atlasCPmain_211227.o.d ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/DriverMFRC522cp.o ${OBJECTDIR}/crc8.o ${OBJECTDIR}/driverAt45CP.o ${OBJECTDIR}/funcia_spi.o ${OBJECTDIR}/functionCP_220419.o ${OBJECTDIR}/functionRS485_K_220118.o ${OBJECTDIR}/functionUART24.o ${OBJECTDIR}/globalVarAtlasCP.o ${OBJECTDIR}/init256GA106AtlasCP.o ${OBJECTDIR}/interruptTimer24.o ${OBJECTDIR}/terminalCP.o ${OBJECTDIR}/atlasCPmain_211227.o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o
+OBJECTFILES=${OBJECTDIR}/DriverMFRC522cp.o ${OBJECTDIR}/driverAt45CP.o ${OBJECTDIR}/funcia_spi.o ${OBJECTDIR}/functionCP_220419.o ${OBJECTDIR}/functionRS485_K_220118.o ${OBJECTDIR}/functionUART24.o ${OBJECTDIR}/globalVarAtlasCP.o ${OBJECTDIR}/init256GA106AtlasCP.o ${OBJECTDIR}/interruptTimer24.o ${OBJECTDIR}/terminalCP.o ${OBJECTDIR}/atlasCPmain_211227.o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o
 
 # Source Files
-SOURCEFILES=DriverMFRC522cp.c crc8.c driverAt45CP.c funcia_spi.c functionCP_220419.c functionRS485_K_220118.c functionUART24.c globalVarAtlasCP.c init256GA106AtlasCP.c interruptTimer24.c terminalCP.c atlasCPmain_211227.c ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S
+SOURCEFILES=DriverMFRC522cp.c driverAt45CP.c funcia_spi.c functionCP_220419.c functionRS485_K_220118.c functionUART24.c globalVarAtlasCP.c init256GA106AtlasCP.c interruptTimer24.c terminalCP.c atlasCPmain_211227.c ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S
 
 
 
@@ -91,7 +91,7 @@ endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=24FJ256GA106
-MP_LINKER_FILE_OPTION=,--script="ezbl_integration\AtlasCP_pcb2_BOOT_220119.X.merge.gld"
+MP_LINKER_FILE_OPTION=,--script="ezbl_integration\AtlasCP_pcb2H_BOOT_220119.X.merge.gld"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -101,13 +101,6 @@ ${OBJECTDIR}/DriverMFRC522cp.o: DriverMFRC522cp.c  nbproject/Makefile-${CND_CONF
 	@${RM} ${OBJECTDIR}/DriverMFRC522cp.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  DriverMFRC522cp.c  -o ${OBJECTDIR}/DriverMFRC522cp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DriverMFRC522cp.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp=${DFP_DIR}/xc16
 	@${FIXDEPS} "${OBJECTDIR}/DriverMFRC522cp.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/crc8.o: crc8.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/crc8.o.d 
-	@${RM} ${OBJECTDIR}/crc8.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  crc8.c  -o ${OBJECTDIR}/crc8.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/crc8.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp=${DFP_DIR}/xc16
-	@${FIXDEPS} "${OBJECTDIR}/crc8.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/driverAt45CP.o: driverAt45CP.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -186,13 +179,6 @@ ${OBJECTDIR}/DriverMFRC522cp.o: DriverMFRC522cp.c  nbproject/Makefile-${CND_CONF
 	@${RM} ${OBJECTDIR}/DriverMFRC522cp.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  DriverMFRC522cp.c  -o ${OBJECTDIR}/DriverMFRC522cp.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DriverMFRC522cp.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp=${DFP_DIR}/xc16
 	@${FIXDEPS} "${OBJECTDIR}/DriverMFRC522cp.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/crc8.o: crc8.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/crc8.o.d 
-	@${RM} ${OBJECTDIR}/crc8.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  crc8.c  -o ${OBJECTDIR}/crc8.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/crc8.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp=${DFP_DIR}/xc16
-	@${FIXDEPS} "${OBJECTDIR}/crc8.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/driverAt45CP.o: driverAt45CP.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -275,32 +261,32 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemblePreproc
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o: ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o: ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/ezbl_integration" 
-	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d 
-	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S  -o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d"  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.asm.d",--defsym=__MPLAB_BUILD=1,--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp=${DFP_DIR}/xc16
-	@${FIXDEPS} "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d" "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.asm.d"  -t $(SILENT)  -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d 
+	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S  -o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d"  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.asm.d",--defsym=__MPLAB_BUILD=1,--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp=${DFP_DIR}/xc16
+	@${FIXDEPS} "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d" "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.asm.d"  -t $(SILENT)  -rsi ${MP_CC_DIR}../  
 	
 else
-${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o: ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o: ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/ezbl_integration" 
-	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d 
-	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S  -o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d"  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.asm.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp=${DFP_DIR}/xc16
-	@${FIXDEPS} "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.d" "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.o.asm.d"  -t $(SILENT)  -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d 
+	@${RM} ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S  -o ${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d"  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.asm.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp=${DFP_DIR}/xc16
+	@${FIXDEPS} "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.d" "${OBJECTDIR}/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o.asm.d"  -t $(SILENT)  -rsi ${MP_CC_DIR}../  
 	
 endif
 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  ezbl_integration/ezbl_lib.a  ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.gld
+dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  ezbl_integration/ezbl_lib.a  ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.gld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
 	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}    ezbl_integration\ezbl_lib.a  -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG=__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)   -mreserve=data@0x800:0x81F -mreserve=data@0x820:0x821 -mreserve=data@0x822:0x823 -mreserve=data@0x824:0x825 -mreserve=data@0x826:0x84F   -Wl,,,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D__DEBUG=__DEBUG,--defsym=__MPLAB_DEBUGGER_PK3=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml$(MP_EXTRA_LD_POST)  -mdfp=${DFP_DIR}/xc16 
 	
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  ezbl_integration/ezbl_lib.a ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.gld
+dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  ezbl_integration/ezbl_lib.a ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.gld
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
 	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}    ezbl_integration\ezbl_lib.a  -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -Wl,,,--defsym=__MPLAB_BUILD=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml$(MP_EXTRA_LD_POST)  -mdfp=${DFP_DIR}/xc16 
 	${MP_CC_DIR}\\xc16-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/AtlasCpPcb2_2H_ipd_BL.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} -a  -omf=elf   -mdfp=${DFP_DIR}/xc16 

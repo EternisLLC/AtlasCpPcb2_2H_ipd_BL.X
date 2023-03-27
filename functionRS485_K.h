@@ -31,7 +31,7 @@ extern "C" {
     #define	TRIS_ENTX485        _TRISB13
     #define	ENTX485_I           _LATF4      // RD8 БШУНД ТНПЛХПНБЮМХЪ ЯХЦМЮКЮ ПЮГПЕЬЕМХЪ ОЕПЕДЮВХ ОН RS485_I//---------29.11.21-----------
                                             // RD8 выход формирования сигнала разрешения передачи по RS485_I//---------29.11.21-----------
-    #define	TRIS_ENTX485_ISO      _TRISF4 //---------29.11.21-----------
+    #define	TRIS_ENTX485_I      _TRISF4 //---------29.11.21-----------
     #define _USE_XFUNC_OUT	1	/* 1: Use output functions */
     #define	_CR_CRLF		1	/* 1: Convert \n ==> \r\n in the output char */
     #define _USE_XFUNC_IN	1	/* 1: Use input function */
@@ -109,16 +109,11 @@ extern "C" {
             unsigned char RX2_ERROR     :1; //нет приема по RS485_I//МЕР ОПХЕЛЮ ОН RS485_I
             unsigned char RX3_OFF       :1; //запрет приема по RS485//ГЮОПЕР ОПХЕЛЮ ОН RS485
             unsigned char RX2_OFF       :1; //запрет приема по RS485_I//ГЮОПЕР ОПХЕЛЮ ОН RS485_I
-//            unsigned char RX3_UART      :1; //разрешенное направление передачи данных//ПЮГПЕЬЕММНЕ МЮОПЮБКЕМХЕ ОЕПЕДЮВХ ДЮММШУ
-//            unsigned char RX2_UART      :1; //разрешенное направление передачи данных//ПЮГПЕЬЕММНЕ МЮОПЮБКЕМХЕ ОЕПЕДЮВХ ДЮММШУ
-//            unsigned char RX3_OK        :1; //принят байт по RS485(сбрасывается в RS485_putc)//ОПХМЪР АЮИР ОН RS485(ЯАПЮЯШБЮЕРЯЪ Б RS485_putc)
-//            unsigned char RX2_OK        :1; //принят байт по RS485_I(сбрасывается в RS485_putc)//ОПХМЪР АЮИР ОН RS485_I(ЯАПЮЯШБЮЕРЯЪ Б RS485_putc)
         };
         unsigned char    ErrorDirRS;
     }ErrorRS;
     extern ErrorRS ErrorDirRS485;
     extern unsigned char TxRunRs;		// флаг - признак передачи
-    //extern unsigned char CurrentModeRs;
     void Init_IKZ (void);
     void Terminal_IKZ (void);
     void Reset_IKZ (void);

@@ -32,8 +32,7 @@ unsigned char MFRC522_ReadByte(unsigned char Address)
     CS_RC522 = 1;
 	return Temp;
 }
-//
-//
+
 void MFRC522_Clear_Bit( char addr, unsigned char mask )
 {     unsigned int  tmp =0x00;
       tmp = MFRC522_ReadByte( addr ) ;

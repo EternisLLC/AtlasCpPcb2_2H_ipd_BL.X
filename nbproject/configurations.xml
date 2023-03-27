@@ -8,7 +8,6 @@
         <itemPath>DriverMFRC522cp.h</itemPath>
         <itemPath>SetConfigurationGA106.h</itemPath>
         <itemPath>alwaysCP_210728.h</itemPath>
-        <itemPath>crc8.h</itemPath>
         <itemPath>driverAt45.h</itemPath>
         <itemPath>funcia_spi.h</itemPath>
         <itemPath>functionCP.h</itemPath>
@@ -25,14 +24,13 @@
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
-      <itemPath>ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.gld</itemPath>
+      <itemPath>ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.gld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="c" projectFiles="true">
         <itemPath>DriverMFRC522cp.c</itemPath>
-        <itemPath>crc8.c</itemPath>
         <itemPath>driverAt45CP.c</itemPath>
         <itemPath>funcia_spi.c</itemPath>
         <itemPath>functionCP_220419.c</itemPath>
@@ -44,7 +42,7 @@
         <itemPath>terminalCP.c</itemPath>
       </logicalFolder>
       <itemPath>atlasCPmain_211227.c</itemPath>
-      <itemPath>ezbl_integration/AtlasCP_pcb2_BOOT_220119.X.merge.S</itemPath>
+      <itemPath>ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.S</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

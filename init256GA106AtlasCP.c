@@ -2,14 +2,17 @@
 #include    <libpic30.h>
 #include    "alwaysCP_210728.h"
 #include    "init256GA106AtlasCP.h"
-
+#include    "functionRS485_K.h"
 void InitPort(void){
     // конфигурируем все входы выходы как цифровые
     AD1PCFG = 0xFFFF;               //АЦП входы отключены
     // выставляем все на вход
     TRISB = 0xFFFF;
     TRISC = 0xFFFF;
+    
     // конфигурируем выходы
+    ENTX485_I = 1;
+    TRIS_ENTX485_I = 0;   // изменения для pcb 2.2 и TD331S485H-A
     LED_START = 0;
     LED_FIRE = 0;
     LED_ERROR = 0;

@@ -36,7 +36,6 @@ void __attribute__ ((interrupt,no_auto_psv)) _T3Interrupt (void)
         CounterCheckStatusBU --;
         if(!CounterCheckStatusBU){
             CounterCheckStatusBU = PERIOD_REPORT;
-//            Interval._CheckStatusBU = 1;
         }
     }
 } // T3 Interrupt

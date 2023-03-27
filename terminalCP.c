@@ -9,7 +9,6 @@
 #include    "FunctionRS485_K.h"
 #include    "terminal.h"
 #include    "InterruptTimer24.h"
-#include    "crc8.h"
 #include    "DriverAt45.h"
 #include    "functionCP.h"
 #include "DriverMFRC522cp.h"
@@ -248,29 +247,7 @@ COUNTER_COMMAND ++;
 //--- Если команда есть в списке, но для неё ещё не написан обработчик ---------
 //------------------------------------------------------------------------------       
         default :
-//            xprintf("LineLcd -> ");
-//            xprintf("%s",LineLcd);
-////            for(index = 0; index < 128; index ++){
-////                xprintf("%c",LineLcd[index]);
-////            }
-//            xprintf("\r");
-//            xprintf("RxFifoU4 -> ");
-//            for(index = 0; index < 128; index ++){
-//                xprintf("%c",RxFifoU4.buff[index]);
-//            }
-//            xprintf("\r");
-//            xprintf("wi - %u\r",RxFifoU4.wi);
-//            xprintf("ri - %u\r",RxFifoU4.ri);
-//            xprintf("ct - %u\r",RxFifoU4.ct);
-//            xprintf("TxFifoU4 -> ");
-//            for(index = 0; index < 128; index ++){
-//                xprintf("%c",TxFifoU4.buff[index]);
-//            }
-//            xprintf("\r");
-//            xprintf("wi - %u\r",TxFifoU4.wi);
-//            xprintf("ri - %u\r",TxFifoU4.ri);
-//            xprintf("ct - %u\r",TxFifoU4.ct);
-//            Nop();
+
             break;
         case    PAGE_CURRENT :
             if(!param[0] && CurrentScreen == 255){

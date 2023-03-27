@@ -20,7 +20,6 @@ extern TimeStruct CurrentTime;
 
 extern interval_t Interval;
 extern UINT8   CounterDelaySec;
-//extern UINT16   CounterDelayMs;
 extern UINT16  CounterDelayRs;
 extern UINT8    CounterNoAnswer[11];
 extern UINT32 Counter1ms;

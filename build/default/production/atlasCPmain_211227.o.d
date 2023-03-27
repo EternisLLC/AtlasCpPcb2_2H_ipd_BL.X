@@ -7,6 +7,5 @@ interruptTimer24.h  \
  functionCP.h  \
 driverAt45.h  \
 DriverMFRC522cp.h  \
-crc8.h  \
 FunctionRS485_K.h  \
  functionUART24.h 

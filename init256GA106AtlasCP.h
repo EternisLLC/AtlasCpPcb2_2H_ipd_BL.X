@@ -13,10 +13,6 @@ extern "C" {
 #endif
     
     void ProcessorInit (void);
-//    void OpenTmr1(UINT16 delay_us);
-//    void CloseTmr1(void);
-
-
 
 #ifdef	__cplusplus
 }
