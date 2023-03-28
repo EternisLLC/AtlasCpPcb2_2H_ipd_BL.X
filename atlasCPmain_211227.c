@@ -20,16 +20,10 @@
 #include    "FunctionRS485_K.h"
 #include    "functionUART24.h"
 
-/*
- * проверка GitHub
- */
-UINT8 DirectControl = 1;
-UINT32 tempSN = 0;
-UINT16 CounterDelayWork = 100;
-static UINT16   CounterJampPage;
+
+
 
 int main(void) {
-    UINT8 ii;
     ProcessorInit();
 // ОЧИСТКА ПАМЯТИ
 //    EraseAt45();
@@ -45,7 +39,9 @@ int main(void) {
     }
     CurrentEventWrite = ReadCurrentPositionAt45();
     NumberOfResponses[0] = 0;
+    UINT8 ii;
     for(ii = 1; ii < 11; ii ++){
+        UINT32 tempSN = 0;
         // считываем СН зарегистрированных БУ из 4...43 ячеек 2047 страницы at45
         tempSN = ReadLongFromAT45(2047,(ii*4));
         if(tempSN == 0xFFFFFFFF){
@@ -70,6 +66,7 @@ int main(void) {
     Interval._CheckStatusBU = 1;
     WaitingScreen = 0;
     while(1){
+        static UINT16   CounterJampPage;
         while(CurrentScreen > 9 && CurrentScreen != 15 && CurrentScreen != 255){
             if(Interval._CheckStatusBU){
                 (void)CheckStatusBU201106(DirectControl);
@@ -156,7 +153,8 @@ int main(void) {
                 // 30.09.22
                 if(ControlFlagCP.ErrorRip != IN_ERR_RIR){   // 30.09.22
                     ControlFlagCP.ErrorRip = IN_ERR_RIR;
-                    if(CurrentScreen == 10){     
+                    if(CurrentScreen == 10){  
+                        while(TxRunRs || TxRunLcd);
                         if(ControlFlagCP.ErrorRip){
                             printf("page10.t13.pic=56ЪЪЪ");
                         }else{
@@ -181,7 +179,6 @@ int main(void) {
                     LED_START = TempLedStart;
                     LED_AUTO = TempLedAuto;
                 }
-//            printf("page %uЪЪЪ",(UINT8)param[0]); // передаем команду перехода на указанную станицу 
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
                 printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1b\r",LcdBufferData);
@@ -283,10 +280,12 @@ int main(void) {
                             ReadSerialNumberKID(SerialNumberKid[0].BufferKid);
                             counterReadCart --;
                         }
+                        while(TxRunRs || TxRunLcd);
                         if(SerialNumberKid[0].SerialKid){
                             printf("page4.t4.txt=\"%lu\"ЪЪЪ", SerialNumberKid[0].SerialKid);
                         }else{
                             printf("page4.t4.txt=\"0\"ЪЪЪ");
+                            while(TxRunRs || TxRunLcd);
                             printf("page4.t14.txt=\"\"ЪЪЪ");
                         }
                     }else{

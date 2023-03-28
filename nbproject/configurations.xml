@@ -17,8 +17,6 @@
         <itemPath>interruptTimer24.h</itemPath>
         <itemPath>terminal.h</itemPath>
       </logicalFolder>
-      <itemPath>изменения КП.txt</itemPath>
-      <itemPath>arhiv.txt</itemPath>
       <itemPath>ezbl_integration/ezbl.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"

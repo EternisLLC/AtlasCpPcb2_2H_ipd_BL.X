@@ -416,10 +416,8 @@ void ReadSerialNumberKID(unsigned char * tempSn){
     }else{ //серийный номер не прочитан
         ErrorRegRC522 = MFRC522_ReadByte(ErrorReg);
         if(ErrorRegRC522){
-//            printf("RC522_reinit\r");
             MFRC522_Init();
-
-        }
+      }
     }
     if(!FlagMFRC522._ReadCart)MFRC522_SoftPowerDown(); // Выключение модуля RC522(карта прочитана)
     ChangModeSpi(2);

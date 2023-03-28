@@ -193,17 +193,15 @@ if (!xgetsU4(LineLcd, sizeof LineLcd)){
 ptr = LineLcd;                                                                     //ןנטסגאטגאול ףךאחאעוכü םא ןמכףקוםםף‏ סענמךף גנולוםםמי ןונולוםםמי
 //------------------ נאסןאךמגךא ןנטםÿעמי סענמךט --------------------------------
 while (CounterCommands<MaxCommands){                                            //ןונובטנאול סןטסמך ךמללאםה
-   // printf("Ïונובמנ ךמלאםה:%d\n",CounterCommands);
     if (!strncmp(ptr,CommandsU4[CounterCommands].Command,strlen(CommandsU4[CounterCommands].Command))){     //וסכט ךמלאםהא וסעü ג סןטסךו,עמ
         ptr=strchr(ptr,' ');                                                    //סלושאול המ ןונגמדמ ןנמבוכא
         while(xatoi(&ptr,&param[CounterParam])){                                //ןונובטנאול ןאנאלוענû ךמלאםהû
             CounterParam++;                                                     //ףגוכטקטגאול סק¸עקטךא ןאנאלוענמג
-           // printf("Ïונובמנ ןאנאלוענמג:%d\n",CounterParam);
         }                              
         break;
     }
     CounterCommands++;                                                          //ףגוכטקטגאול סק¸עקטך סןטסךא ךמלאםה
-}//ךמםךצ while (i<MaxCommands)
+}
 NameCommand = CommandsU4[CounterCommands].Name;                                     //ןנטסגמוםטו טלוםט םאיהוםמי ךמלאםהû
 //============
 COUNTER_COMMAND ++;
@@ -254,7 +252,8 @@ COUNTER_COMMAND ++;
                 SaveEvent(100);
             }
             if(!param[0]){ // ÐÅÒÅÈÏÄ ÎÁ 0 ÓÔÒÁÎÉÃÕ
-                printf("t0.txt=\"ver%02lu.%02lu.%02lu\"ÿÿÿ",VerD,VerM,VerY);
+                while(TxRunRs || TxRunLcd);
+                printf("page0.t0.txt=\"ver%02lu.%02lu.%02lu\"ÿÿÿ",VerD,VerM,VerY);
             }
 //----------------
             if(!CurrentScreen && param[0] == 10){
@@ -279,6 +278,7 @@ COUNTER_COMMAND ++;
                         Nop();
                         ModeRs = ReadCharFromAt45(2047,250); // 16.09.22
                         SelectModeRs485(ModeRs);
+                        while(TxRunRs || TxRunLcd);
                         switch(ControlFlagCP.CurrentModeRs){
                             case 0:
                                 break;
@@ -293,11 +293,14 @@ COUNTER_COMMAND ++;
                     case 7:
                         PrintDirectionNumber(CurrentScreen);
                         StatusBU[SelectedDirection].SerialNumber = ReadLongFromAT45(2047,(SelectedDirection * 4));
+                        while(TxRunRs || TxRunLcd);
                         if(StatusBU[SelectedDirection].SerialNumber==0x0){
                             printf("page7.show.txt=\"0\"ÿÿÿ");
+                            while(TxRunRs || TxRunLcd);
                             printf("page7.b10.txt=\"הןגבקיפר\"ÿÿÿ");
                         }else{
                             printf("page7.show.txt=\"%lu\"ÿÿÿ", StatusBU[SelectedDirection].SerialNumber);
+                            while(TxRunRs || TxRunLcd);
                             printf("page7.b10.txt=\"ץהבליפר\"ÿÿÿ");
                         }
                         break;
@@ -305,6 +308,7 @@ COUNTER_COMMAND ++;
                         if(!redy){
                             WaitingScreen = 0;              // ÐÅÒÅÍÅÎÎÏÊ WaitingScreen ÐÒÉÓ×ÁÅ×ÁÅÍ 0 ÎÏÍÅÒ ÓÔÒÁÎÉÃÙ ÎÁ ËÏÔÏÒÕÀ ×ÙÐÏÌÎÑÅÔÓÑ ÐÅÒÅÈÏÄ
                             LcdFlag.WaitNewScreen1 = 1;      // ×ÙÓÔÁ×ÌÑÅÍ ÆÌÁÇ ÎÏ×ÏÇÏ ÐÅÒÅÈÏÄÁ
+                            while(TxRunRs || TxRunLcd);
                             sprintf(LcdBufferData,"page %uÿÿÿ",WaitingScreen);
                             LcdFlag.NewPage = 1;
                             CurrentScreen = 0;
@@ -406,6 +410,7 @@ COUNTER_COMMAND ++;
                 AccessPassword = param[0];
                 SaveAccessPassword(AccessPassword);
                 SaveEvent(105); // ÓÏÂÙÔÉÅ ÉÚÍÅÎÅÎÉÅ ÐÁÒÏÌÑ
+                while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page6.show.bco=%uÿÿÿ", GREEN);
                 printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                 
@@ -428,10 +433,12 @@ COUNTER_COMMAND ++;
                 CurrentTime.Minute = (unsigned char)param[4];
                 CurrentTime.Second = (unsigned char)param[5];
                 SaveEvent(101);
-                printf("t20.pco=%uÿÿÿ",GREEN);
+                while(TxRunRs || TxRunLcd);
+                printf("page3.t20.pco=%uÿÿÿ",GREEN);
                 CounterDelaySec = 1;
                 while (CounterDelaySec);
-                printf("t20.pco=%uÿÿÿ", BLACK);
+                while(TxRunRs || TxRunLcd);
+                printf("page3.t20.pco=%uÿÿÿ", BLACK);
             }
             break;
         case NEXT_DIR:
@@ -442,11 +449,14 @@ COUNTER_COMMAND ++;
             
             StatusBU[SelectedDirection].SerialNumber = ReadLongFromAT45(2047,(SelectedDirection * 4));
             PrintDirectionNumber(CurrentScreen);
+            while(TxRunRs || TxRunLcd);
             if(StatusBU[SelectedDirection].SerialNumber==0x0){
                 printf("page7.show.txt=\"0\"ÿÿÿ");
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"הןגבקיפר\"ÿÿÿ");
             }else{
                 printf("page7.show.txt=\"%lu\"ÿÿÿ", StatusBU[SelectedDirection].SerialNumber);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"ץהבליפר\"ÿÿÿ");
             }
             break;
@@ -454,9 +464,11 @@ COUNTER_COMMAND ++;
             dir = (unsigned char)param[0];
             if (StatusBU[dir].SerialNumber) {
                 // ÐÏÐÙÔËÁ ÚÁÐÉÓÉ × ÚÁÎÑÔÕÀ ÑÞÅÊËÕ
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uÿÿÿ", YELOW);
                 CounterDelaySec = 1;
                 while (CounterDelaySec);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uÿÿÿ", WHITE);
                 return;
             }
@@ -465,24 +477,31 @@ COUNTER_COMMAND ++;
                 for (ii = 1; ii < 11; ii++) {
                     // ÐÒÏ×ÅÒËÁ ÎÁ ÓÏ×ÐÁÄÅÎÉÅ ÓÅÒÉÊÎÙÈ ÎÏÍÅÒÏ×
                     if (param[1] == StatusBU[ii].SerialNumber) {
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.bco=%uÿÿÿ", YELOW);
                         CounterDelaySec = 1;
                         while (CounterDelaySec);
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.txt=\"%lu\"ÿÿÿ", StatusBU[dir].SerialNumber);
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.bco=%uÿÿÿ", WHITE);
                         LcdFlag.NewSn = 0;
                         return;
                     }
                 }
                 // ÚÁÐÉÓØ ÎÏ×ÏÇÏ ÓÅÒÉÊÎÏÇÏ ÎÏÍÅÒÁ
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uÿÿÿ", GREEN);
                 CounterDelaySec = 1;
                 StatusBU[dir].SerialNumber = param[1];
                 SaveSerialNumberBU(StatusBU[dir].SerialNumber, (dir * 4));
                 while (CounterDelaySec);
                 SaveEvent(102);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.txt=\"%lu\"ÿÿÿ", StatusBU[dir].SerialNumber);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uÿÿÿ", WHITE);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"ץהבליפר\"ÿÿÿ");
             }
             Nop();
@@ -490,6 +509,7 @@ COUNTER_COMMAND ++;
         case    DEL_BU:
             // ÕÄÁÌÅÎÉÅ ÚÁÐÉÓÁÎÎÏÇÏ ÓÅÒÉÊÎÏÇÏ ÎÏÍÅÒÁ
             dir = (unsigned char)param[0];
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.bco=%uÿÿÿ", GREEN);
             CounterDelaySec = 2;
             TempSerialNumberBUR = StatusBU[dir].SerialNumber;
@@ -497,17 +517,24 @@ COUNTER_COMMAND ++;
             SaveEvent(103);
             SaveSerialNumberBU(StatusBU[dir].SerialNumber, (dir * 4));
             while (CounterDelaySec);
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.txt=\"%lu\"ÿÿÿ", StatusBU[dir].SerialNumber);
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.bco=%uÿÿÿ", WHITE);
+            while(TxRunRs || TxRunLcd);
             printf("page7.b10.txt=\"הןגבקיפר\"ÿÿÿ");
             Nop();
             break;
         case    KID_READ:   // ÉÚÍ. 01.04.22
             NumberKID = (UINT8)param[0];
             ReadRegisteredKid(NumberKID); // ÞÔÅÎÉÅ ÓÏÈÒÁÎÅÎÎÏÇÏ ËÌÀÞÁ × ÐÅÒÅÍÅÎÎÙÅ
+            while(TxRunRs || TxRunLcd);
             printf("page4.t4.txt=\"%lu\"ÿÿÿ", SerialNumberKid[NumberKID].SerialKid); // ÉÚÍ. 20.06.22
+            while(TxRunRs || TxRunLcd);
             printf("page4.t14.txt=\"\"ÿÿÿ");
+            while(TxRunRs || TxRunLcd);
             printf("page4.t13.pic=27ÿÿÿ");
+            while(TxRunRs || TxRunLcd);
             if(SerialNumberKid[NumberKID].SerialKid){
                 printf("page4.b0.txt=\"ץהבליפר\"ÿÿÿ");
             }else{
@@ -529,31 +556,42 @@ COUNTER_COMMAND ++;
                     SerialNumberKid[0].SerialKid == SerialNumberKid[8].SerialKid ||
                     SerialNumberKid[0].SerialKid == SerialNumberKid[9].SerialKid ||
                     SerialNumberKid[0].SerialKid == SerialNumberKid[10].SerialKid){
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.t14.txt=\"ÕÖÅ ÅÓÔØ\"ÿÿÿ");
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.t13.pic=26ÿÿÿ");
                 }else{
                     SavingRegisteredKid(NumberKID); // ÓÏÈÒÁÎÑÅÍ × ÐÁÍÑÔÉ ÎÏ×ÙÊ ËÌÀÞ
                     ReadRegisteredKid(NumberKID); // ËÏÎÔÒÏÌØÎÏÅ ÞÔÅÎÉÅ ÓÏÈÒÁÎÅÎÎÏÇÏ ËÌÀÞÁ × ÐÅÒÅÍÅÎÎÙÅ
                     if(SerialNumberKid[NumberKID].SerialKid == SerialNumberKid[0].SerialKid){
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t4.txt=\"%lu\"ÿÿÿ", SerialNumberKid[NumberKID].SerialKid); // ÉÚÍ. 20.06.22
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t14.txt=\"ÚÁÐÉÓÁÎ\"ÿÿÿ");
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t13.pic=27ÿÿÿ");
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.b0.txt=\"ץהבליפר\"ÿÿÿ");
                         SaveEvent(106);
                     }else{
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t14.txt=\"ÎÅ ÚÁÐÉÓÁÎ\"ÿÿÿ");
+                        while(TxRunRs || TxRunLcd);
                         printf("pfge4.t13.pic=26ÿÿÿ");
                     }
                 }
                 FlagMFRC522._newCart = 0;
             }else{
+                while(TxRunRs || TxRunLcd);
                 if(!SerialNumberKid[NumberKID].SerialKid){
                     printf("page4.t14.txt=\"ÎÅÔ ËÌÀÞÁ\"ÿÿÿ");
+                    while(TxRunRs || TxRunLcd);
                     printf("t13.pic=26ÿÿÿ");
                 }else{
                     SerialNumberKid[NumberKID].SerialKid = 0;
                     SavingRegisteredKid(NumberKID); // ÓÏÈÒÁÎÑÅÍ × ÐÁÍÑÔÉ ÎÏ×ÙÊ ËÌÀÞ
                     printf("page4.t14.txt=\"ËÌÀÞ ÕÄÁÌÅÎ\"ÿÿÿ");
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.b0.txt=\"תבניףבפר\"ÿÿÿ");
                 }
             }
@@ -584,7 +622,10 @@ COUNTER_COMMAND ++;
             TempNumberKid = SearchNumberKid(); // ÉÚÍ. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
             TempDirectRs = SelectedDirection; // ÓÏÈÒÁÎÑÅÍ ÎÏÍÅÒ ÎÁÐÒÁ×ÌÅÎÉÑ
-            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+//            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ",CurrentScreen);
+            printf("%s",LcdBufferData);
 // ÉÚÍ. 02.09.22
             switch(StatusBU[SelectedDirection].StatusAuto.StatusAutoByte & 0b11000000){
                 case AUTO:
@@ -611,7 +652,10 @@ COUNTER_COMMAND ++;
 // ÉÚÍ. 29.03.22             TempNumberKid = SearchIbutton();
             TempNumberKid = SearchNumberKid(); // ÉÚÍ. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
-            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+//            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ",CurrentScreen);
+            printf("%s",LcdBufferData);
             TempDirectRs = SelectedDirection; // ÓÏÈÒÁÎÑÅÍ ÎÏÍÅÒ ÎÁÐÒÁ×ÌÅÎÉÑ
             TempCommandRs = 6;  // ËÏÍÁÎÄÁ ÓÂÒÏÓ
             break;
@@ -620,7 +664,10 @@ COUNTER_COMMAND ++;
 // ÉÚÍ. 29.03.22             TempNumberKid = SearchIbutton();
             TempNumberKid = SearchNumberKid(); // ÉÚÍ. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
-            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+//            printf("t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ןציהבמיו עובכדיי\"ÿÿÿ",CurrentScreen);
+            printf("%s",LcdBufferData);
             TempDirectRs = SelectedDirection; // ÓÏÈÒÁÎÑÅÍ ÎÏÍÅÒ ÎÁÐÒÁ×ÌÅÎÉÑ
             TempCommandRs = 7;  // ËÏÍÁÎÄÁ ÓÔÁÒÔ ÐÏ ÎÁÐÒÁ×ÌÅÎÉÀ
             break;
@@ -656,11 +703,13 @@ COUNTER_COMMAND ++;
             if(ControlFlagCP.CurrentModeRs == 1){
                 SelectModeRs485(2);
                 if(ControlFlagCP.CurrentModeRs == 2){
+                    while(TxRunRs || TxRunLcd);
                     printf("page5.b1.pic=91ÿÿÿ");
                 }
             }else{
                 SelectModeRs485(1);
                 if(ControlFlagCP.CurrentModeRs == 1){
+                    while(TxRunRs || TxRunLcd);
                     printf("page5.b1.pic=92ÿÿÿ");
                 }
             }
