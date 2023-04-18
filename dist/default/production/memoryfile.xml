@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/AtlasCpPcb2_2HBL_ver.1.0.0.X.production.elf">
+  <executable name="dist/default/production/AtlasCpPcb2_2HBL_ver.1.0.1.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>16384</length>
-      <used>9490</used>
-      <free>6894</free>
+      <used>9554</used>
+      <free>6830</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>261876</length>
-      <used>88461</used>
-      <free>173415</free>
+      <used>88470</used>
+      <free>173406</free>
     </memory>
   </executable>
 </project>

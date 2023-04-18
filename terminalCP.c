@@ -175,7 +175,7 @@ int xatoi (			/* 0:Failed, 1:Successful */
 UINT8   TempDirectRs = 0;
 UINT8   TempCommandRs = 0;
 UINT8   TempNumberKid = 0;
-char   LcdBufferData[64];
+char   LcdBufferData[128];
 static UINT16 COUNTER_COMMAND;
 static UINT8  redy; // изм. 01.04.22
 // изм. 29.03.22 #include    "iButton.h"
@@ -253,7 +253,7 @@ COUNTER_COMMAND ++;
             }
             if(!param[0]){ // переход на 0 страницу
                 while(TxRunRs || TxRunLcd);
-                printf("page0.t0.txt=\"ver%02lu.%02lu.%02lu\"ЪЪЪ",VerD,VerM,VerY);
+                printf("page0.t0.txt=\"ver%u.%u.%02u\"ЪЪЪ",VerY,VerM,VerD);
             }
 //----------------
             if(!CurrentScreen && param[0] == 10){

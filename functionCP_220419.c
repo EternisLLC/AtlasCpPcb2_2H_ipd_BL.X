@@ -889,9 +889,11 @@ void IndicatorDirection(UINT8 dir){
                     printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
 // выводим количество БОС во внимании, пожаре и неисправности
                     while(TxRunRs || TxRunLcd);
-                    sprintf(LcdBufferData,"page11.t2.txt=\"БОС подробно:\\rв пожаре - %u\\rво внимании - %u\\rв неисправности - %u\"ЪЪЪ"
-                        ,CounterFireDevice,CounterAttentionDevice,CounterErrBos);
-                        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+//                    sprintf(LcdBufferData,"page11.t2.txt=\"БОС подробно:\\rв пожаре - %u\\rво внимании - %u\\rв неисправности - %u\"ЪЪЪ"
+//                        ,CounterFireDevice,CounterAttentionDevice,CounterErrBos);
+                    sprintf(LcdBufferData,"page11.t2.txt=\"БОС подробно:\\rв пуске - %u\\rв пожаре - %u\\rво внимании - %u\\rв неисправности - %u\"ЪЪЪ"
+                        ,CounterStartDevice,CounterFireDevice,CounterAttentionDevice,CounterErrBos);
+                    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
 
                 }
 //***************

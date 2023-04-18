@@ -12,10 +12,10 @@
 extern "C" {
 #endif
 //тбурблтчлб четуйй ртпзтбннщ
-    #define VERSION 230202
-    #define VerY    VERSION/10000
-    #define VerM    (VERSION/100)%100
-    #define VerD    VERSION%100    
+    #define VERSION 10001
+    #define VerY    (VERSION/10000)
+    #define VerM    ((VERSION/100)%100)
+    #define VerD    (VERSION%100)
     #define FCY 32000000UL/2
     // ++++++++змпвбмшоще пртедемеойс++++++++++++++
     typedef unsigned char   UINT8;
