@@ -957,7 +957,7 @@ void IndicatorDirection(UINT8 dir){
                     printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
 //  29.09.22 замена на рип                  printf("t10.pic=57ЪЪЪ"); // RS485 в норме
                     // отображение состояния авоматики
-                    if(!StatusBU[SelectedDirection].Situation){
+                    if(!(StatusBU[SelectedDirection].Situation & 0x0F)){
                         // обстановка норма и вся автоматика включена
                         if(/*!StatusBU[SelectedDirection].FlagErrRoom.ErrByte && 14.11.22*/
                         !StatusBU[SelectedDirection].StatusAuto.Manual &&

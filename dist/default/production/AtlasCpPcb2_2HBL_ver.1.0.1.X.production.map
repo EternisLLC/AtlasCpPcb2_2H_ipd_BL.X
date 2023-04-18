@@ -50,7 +50,7 @@ Command:
   dist/default/production/memoryfile.xml \
   --defsym=_APPID_VER_MAJOR=2 \
   --defsym=_APPID_VER_MINOR=11 \
-  --defsym=_APPID_VER_BUILD=6018 \
+  --defsym=_APPID_VER_BUILD=6024 \
   -start-group \
   --library=lega-pic30-elf \
   --library=m-elf \
@@ -214,13 +214,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 EZBL_ROM_AT_0x000200         0x200              0x1a00          0x2700  (9984)
 EZBL_AppErasable            0x1c00                0x10            0x18  (24)
 .igt                        0x1c10               0x104           0x186  (390)
-.const                      0x1d14              0x2508          0x378c  (14220)
+.const                      0x1d14              0x2506          0x3789  (14217)
 .text                       0x421c              0x2142          0x31e3  (12771)
-.text                       0x635e              0x81e8          0xc2dc  (49884)
-.dinit                      0xe546               0x17e           0x23d  (573)
-.text                       0xe6c4               0x1a0           0x270  (624)
+.text                       0x635e              0x81ec          0xc2e2  (49890)
+.dinit                      0xe54a               0x17e           0x23d  (573)
+.text                       0xe6c8               0x1a0           0x270  (624)
 
-                 Total "program" memory used (bytes):        0x15996  (88470) 33%
+                 Total "program" memory used (bytes):        0x15999  (88473) 33%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x4000]
@@ -494,7 +494,7 @@ External Symbols in Program Memory (by address):
 
                   0x003ba6                  _Crc8Table
                   0x003d38                  _CommandsU4
-                  0x0040bc                  _CommandsU2
+                  0x0040ba                  _CommandsU2
                   0x00421c                  __resetPRI
                   0x004258                  __psv_init
                   0x00426e                  __data_init_standard
@@ -618,239 +618,239 @@ External Symbols in Program Memory (by address):
                   0x00749c                  _IndicationStatusRs
                   0x00765e                  _PrintDirectionNumber
                   0x0076f2                  _IndicatorDirection
-                  0x008914                  _SwitchSelect
-                  0x008a6c                  _DisplayStatusBOS1202
-                  0x008c3a                  _PrintStatusBosNew
-                  0x0097c0                  _CheckDevice
-                  0x009832                  _Check32Device
-                  0x0098c2                  _PrintEventLCD
-                  0x00a132                  _DisplayReadArhiv0525
-                  0x00a29c                  _PrintEventUSB
-                  0x00a8a8                  _TransmittArhivUSB
-                  0x00aa4e                  _CheckIntegralStatus
-                  0x00aab8                  _CheckIntegralSituation
-                  0x00aafe                  _CheckIntegralAuto
-                  0x00ab42                  _IndicationControl
-                  0x00ad1a                  _CheckKeyAuto
-                  0x00adb2                  _CheckKeySound
-                  0x00ae22                  _CheckKeyStart
-                  0x00aeb4                  _KeyCheckMain
-                  0x00aed0                  _KeyHandler
-                  0x00b256                  _ReadADC50
-                  0x00b29a                  _CheckMyPwr
-                  0x00b2ea                  _CheckStausPWR
-                  0x00b344                  _TestKey
-                  0x00b36c                  _SavingRegisteredKid
-                  0x00b39a                  _ReadRegisteredKid
-                  0x00b3ea                  _SearchNumberKid
-                  0x00b44c                  _xgetsU4
-                  0x00b4ae                  _xatoi
-                  0x00b62c                  _TerminalLcd
-                  0x00c4e2                  _xgetsU2
-                  0x00c544                  _xatoiRs
-                  0x00c6c2                  _digits
-                  0x00c718                  _ClrLine
-                  0x00c73e                  _TerminalRs
-                  0x00cb36                  _uart1_putc
-                  0x00cb84                  _InitUart1
-                  0x00cbf4                  _uart1_testRx
-                  0x00cbfc                  _uart1_testTx
-                  0x00cc04                  _uart1_getc
-                  0x00cc44                  _Crc8
-                  0x00cc7c                  _ClrFifo
-                  0x00ccdc                  _InitRS485
-                  0x00cd5e                  _InitRS485_I
-                  0x00cdbe                  _RS485_testRx
-                  0x00cdc6                  _RS485_testTx
-                  0x00cdce                  _RS485_getc
-                  0x00ce0a                  _xputc
-                  0x00ce38                  _xputs
-                  0x00d148                  _xprintf
-                  0x00d158                  _InitUSBTerminal
-                  0x00d16c                  _SelectModeRs485
-                  0x00d254                  _InitRS485Terminal
-                  0x00d26c                  _CopyRsTxPacket
-                  0x00d2b8                  _TransmittRsPacket
-                  0x00d2ec                  _Init_IKZ
-                  0x00d2fa                  _Terminal_IKZ
-                  0x00d300                  _Reset_IKZ
-                  0x00d306                  _SaveChenel_IKZ
-                  0x00d30c                  _TestChenel_IKZ
-                  0x00d312                  _SetChenel_IKZ_M
-                  0x00d318                  _main
-                  0x00daca                  _MFRC522_WriteByte
-                  0x00daec                  _MFRC522_Reset
-                  0x00dafc                  _MFRC522_ReadByte
-                  0x00db1e                  _MFRC522_Clear_Bit
-                  0x00db42                  _MFRC522_Set_Bit
-                  0x00db64                  _MFRC522_AntennaOn
-                  0x00db70                  _MFRC522_AntennaOff
-                  0x00db7c                  _MFRC522_Init
-                  0x00dc40                  _commandTag
-                  0x00ddae                  _requestTag
-                  0x00dde6                  _antiCollision
-                  0x00de60                  _MFRC522_SoftPowerDown
-                  0x00de82                  _MFRC522_SoftPowerUp
-                  0x00dea6                  _readRFID_1
-                  0x00deea                  _ReadCardRC522_1
-                  0x00df22                  _ReadSerialNumberKID
-                  0x00dfae                  _InitAt45
-                  0x00dfba                  _At45Enable
-                  0x00dfd6                  _At45Disable
-                  0x00dfe0                  _ReadStatusAt45
-                  0x00e010                  _EraseAt45
-                  0x00e06c                  _WriteToBufferAt45
-                  0x00e108                  _ReadFromBufferAt45
-                  0x00e1a6                  _BufferToMainMemoryPageE
-                  0x00e224                  _MainMemoryPageToBuffer
-                  0x00e2a2                  _MainMemoryArrayRead
-                  0x00e34a                  _ReadLongFromAT45
-                  0x00e362                  _ReadCharFromAt45
-                  0x00e378                  _InitPort
-                  0x00e3c6                  _InitTmr1
-                  0x00e3de                  _OpenTmr1
-                  0x00e3f6                  _InitTmr1_
-                  0x00e414                  _OpenTmr1_
-                  0x00e43c                  _InitTmr2
-                  0x00e456                  _InitTmr3
-                  0x00e470                  _OpenTmr2
-                  0x00e488                  _OpenTmr3
-                  0x00e4a0                  _CloseTmr1
-                  0x00e4ac                  _CloseTmr2
-                  0x00e4b8                  _CloseTmr3
-                  0x00e4c4                  _InitTmr4
-                  0x00e4dc                  _OpenTmr4
-                  0x00e4f4                  _InitADC
-                  0x00e50c                  _ProcessorInit
-                  0x00e6c4                  _uart4_testRx
-                  0x00e6cc                  _uart4_testTx
-                  0x00e6d4                  _uart4_getc
-                  0x00e714                  _uart4_putc
-                  0x00e75e                  _InitUart4
-                  0x00e7b0                  _InitSpi24
-                  0x00e7f6                  _ChangModeSpi
-                  0x00e846                  _SendByteToSpi
+                  0x008918                  _SwitchSelect
+                  0x008a70                  _DisplayStatusBOS1202
+                  0x008c3e                  _PrintStatusBosNew
+                  0x0097c4                  _CheckDevice
+                  0x009836                  _Check32Device
+                  0x0098c6                  _PrintEventLCD
+                  0x00a136                  _DisplayReadArhiv0525
+                  0x00a2a0                  _PrintEventUSB
+                  0x00a8ac                  _TransmittArhivUSB
+                  0x00aa52                  _CheckIntegralStatus
+                  0x00aabc                  _CheckIntegralSituation
+                  0x00ab02                  _CheckIntegralAuto
+                  0x00ab46                  _IndicationControl
+                  0x00ad1e                  _CheckKeyAuto
+                  0x00adb6                  _CheckKeySound
+                  0x00ae26                  _CheckKeyStart
+                  0x00aeb8                  _KeyCheckMain
+                  0x00aed4                  _KeyHandler
+                  0x00b25a                  _ReadADC50
+                  0x00b29e                  _CheckMyPwr
+                  0x00b2ee                  _CheckStausPWR
+                  0x00b348                  _TestKey
+                  0x00b370                  _SavingRegisteredKid
+                  0x00b39e                  _ReadRegisteredKid
+                  0x00b3ee                  _SearchNumberKid
+                  0x00b450                  _xgetsU4
+                  0x00b4b2                  _xatoi
+                  0x00b630                  _TerminalLcd
+                  0x00c4e6                  _xgetsU2
+                  0x00c548                  _xatoiRs
+                  0x00c6c6                  _digits
+                  0x00c71c                  _ClrLine
+                  0x00c742                  _TerminalRs
+                  0x00cb3a                  _uart1_putc
+                  0x00cb88                  _InitUart1
+                  0x00cbf8                  _uart1_testRx
+                  0x00cc00                  _uart1_testTx
+                  0x00cc08                  _uart1_getc
+                  0x00cc48                  _Crc8
+                  0x00cc80                  _ClrFifo
+                  0x00cce0                  _InitRS485
+                  0x00cd62                  _InitRS485_I
+                  0x00cdc2                  _RS485_testRx
+                  0x00cdca                  _RS485_testTx
+                  0x00cdd2                  _RS485_getc
+                  0x00ce0e                  _xputc
+                  0x00ce3c                  _xputs
+                  0x00d14c                  _xprintf
+                  0x00d15c                  _InitUSBTerminal
+                  0x00d170                  _SelectModeRs485
+                  0x00d258                  _InitRS485Terminal
+                  0x00d270                  _CopyRsTxPacket
+                  0x00d2bc                  _TransmittRsPacket
+                  0x00d2f0                  _Init_IKZ
+                  0x00d2fe                  _Terminal_IKZ
+                  0x00d304                  _Reset_IKZ
+                  0x00d30a                  _SaveChenel_IKZ
+                  0x00d310                  _TestChenel_IKZ
+                  0x00d316                  _SetChenel_IKZ_M
+                  0x00d31c                  _main
+                  0x00dace                  _MFRC522_WriteByte
+                  0x00daf0                  _MFRC522_Reset
+                  0x00db00                  _MFRC522_ReadByte
+                  0x00db22                  _MFRC522_Clear_Bit
+                  0x00db46                  _MFRC522_Set_Bit
+                  0x00db68                  _MFRC522_AntennaOn
+                  0x00db74                  _MFRC522_AntennaOff
+                  0x00db80                  _MFRC522_Init
+                  0x00dc44                  _commandTag
+                  0x00ddb2                  _requestTag
+                  0x00ddea                  _antiCollision
+                  0x00de64                  _MFRC522_SoftPowerDown
+                  0x00de86                  _MFRC522_SoftPowerUp
+                  0x00deaa                  _readRFID_1
+                  0x00deee                  _ReadCardRC522_1
+                  0x00df26                  _ReadSerialNumberKID
+                  0x00dfb2                  _InitAt45
+                  0x00dfbe                  _At45Enable
+                  0x00dfda                  _At45Disable
+                  0x00dfe4                  _ReadStatusAt45
+                  0x00e014                  _EraseAt45
+                  0x00e070                  _WriteToBufferAt45
+                  0x00e10c                  _ReadFromBufferAt45
+                  0x00e1aa                  _BufferToMainMemoryPageE
+                  0x00e228                  _MainMemoryPageToBuffer
+                  0x00e2a6                  _MainMemoryArrayRead
+                  0x00e34e                  _ReadLongFromAT45
+                  0x00e366                  _ReadCharFromAt45
+                  0x00e37c                  _InitPort
+                  0x00e3ca                  _InitTmr1
+                  0x00e3e2                  _OpenTmr1
+                  0x00e3fa                  _InitTmr1_
+                  0x00e418                  _OpenTmr1_
+                  0x00e440                  _InitTmr2
+                  0x00e45a                  _InitTmr3
+                  0x00e474                  _OpenTmr2
+                  0x00e48c                  _OpenTmr3
+                  0x00e4a4                  _CloseTmr1
+                  0x00e4b0                  _CloseTmr2
+                  0x00e4bc                  _CloseTmr3
+                  0x00e4c8                  _InitTmr4
+                  0x00e4e0                  _OpenTmr4
+                  0x00e4f8                  _InitADC
+                  0x00e510                  _ProcessorInit
+                  0x00e6c8                  _uart4_testRx
+                  0x00e6d0                  _uart4_testTx
+                  0x00e6d8                  _uart4_getc
+                  0x00e718                  _uart4_putc
+                  0x00e762                  _InitUart4
+                  0x00e7b4                  _InitSpi24
+                  0x00e7fa                  _ChangModeSpi
+                  0x00e84a                  _SendByteToSpi
 
 External Symbols in Program Memory (by name):
 
-                  0x00dfd6                  _At45Disable
-                  0x00dfba                  _At45Enable
-                  0x00e1a6                  _BufferToMainMemoryPageE
-                  0x00e7f6                  _ChangModeSpi
-                  0x009832                  _Check32Device
-                  0x0097c0                  _CheckDevice
-                  0x00aafe                  _CheckIntegralAuto
-                  0x00aab8                  _CheckIntegralSituation
-                  0x00aa4e                  _CheckIntegralStatus
-                  0x00ad1a                  _CheckKeyAuto
-                  0x00adb2                  _CheckKeySound
-                  0x00ae22                  _CheckKeyStart
-                  0x00b29a                  _CheckMyPwr
+                  0x00dfda                  _At45Disable
+                  0x00dfbe                  _At45Enable
+                  0x00e1aa                  _BufferToMainMemoryPageE
+                  0x00e7fa                  _ChangModeSpi
+                  0x009836                  _Check32Device
+                  0x0097c4                  _CheckDevice
+                  0x00ab02                  _CheckIntegralAuto
+                  0x00aabc                  _CheckIntegralSituation
+                  0x00aa52                  _CheckIntegralStatus
+                  0x00ad1e                  _CheckKeyAuto
+                  0x00adb6                  _CheckKeySound
+                  0x00ae26                  _CheckKeyStart
+                  0x00b29e                  _CheckMyPwr
                   0x006c72                  _CheckStatusBU201106
                   0x0068d0                  _CheckStatusDoor
-                  0x00b2ea                  _CheckStausPWR
-                  0x00e4a0                  _CloseTmr1
-                  0x00e4ac                  _CloseTmr2
-                  0x00e4b8                  _CloseTmr3
-                  0x00cc7c                  _ClrFifo
-                  0x00c718                  _ClrLine
+                  0x00b2ee                  _CheckStausPWR
+                  0x00e4a4                  _CloseTmr1
+                  0x00e4b0                  _CloseTmr2
+                  0x00e4bc                  _CloseTmr3
+                  0x00cc80                  _ClrFifo
+                  0x00c71c                  _ClrLine
                   0x006c08                  _ClrStatusBos
                   0x006866                  _CommandRs
-                  0x0040bc                  _CommandsU2
+                  0x0040ba                  _CommandsU2
                   0x003d38                  _CommandsU4
-                  0x00d26c                  _CopyRsTxPacket
+                  0x00d270                  _CopyRsTxPacket
                   0x006958                  _CopyUnuonStatusBu
-                  0x00cc44                  _Crc8
+                  0x00cc48                  _Crc8
                   0x003ba6                  _Crc8Table
-                  0x00a132                  _DisplayReadArhiv0525
-                  0x008a6c                  _DisplayStatusBOS1202
-                  0x00e010                  _EraseAt45
-                  0x00ab42                  _IndicationControl
+                  0x00a136                  _DisplayReadArhiv0525
+                  0x008a70                  _DisplayStatusBOS1202
+                  0x00e014                  _EraseAt45
+                  0x00ab46                  _IndicationControl
                   0x00749c                  _IndicationStatusRs
                   0x0076f2                  _IndicatorDirection
-                  0x00e4f4                  _InitADC
-                  0x00dfae                  _InitAt45
-                  0x00e378                  _InitPort
-                  0x00ccdc                  _InitRS485
-                  0x00d254                  _InitRS485Terminal
-                  0x00cd5e                  _InitRS485_I
-                  0x00e7b0                  _InitSpi24
-                  0x00e3c6                  _InitTmr1
-                  0x00e3f6                  _InitTmr1_
-                  0x00e43c                  _InitTmr2
-                  0x00e456                  _InitTmr3
-                  0x00e4c4                  _InitTmr4
-                  0x00d158                  _InitUSBTerminal
-                  0x00cb84                  _InitUart1
-                  0x00e75e                  _InitUart4
-                  0x00d2ec                  _Init_IKZ
-                  0x00aeb4                  _KeyCheckMain
-                  0x00aed0                  _KeyHandler
-                  0x00db70                  _MFRC522_AntennaOff
-                  0x00db64                  _MFRC522_AntennaOn
-                  0x00db1e                  _MFRC522_Clear_Bit
-                  0x00db7c                  _MFRC522_Init
-                  0x00dafc                  _MFRC522_ReadByte
-                  0x00daec                  _MFRC522_Reset
-                  0x00db42                  _MFRC522_Set_Bit
-                  0x00de60                  _MFRC522_SoftPowerDown
-                  0x00de82                  _MFRC522_SoftPowerUp
-                  0x00daca                  _MFRC522_WriteByte
-                  0x00e2a2                  _MainMemoryArrayRead
-                  0x00e224                  _MainMemoryPageToBuffer
-                  0x00e3de                  _OpenTmr1
-                  0x00e414                  _OpenTmr1_
-                  0x00e470                  _OpenTmr2
-                  0x00e488                  _OpenTmr3
-                  0x00e4dc                  _OpenTmr4
+                  0x00e4f8                  _InitADC
+                  0x00dfb2                  _InitAt45
+                  0x00e37c                  _InitPort
+                  0x00cce0                  _InitRS485
+                  0x00d258                  _InitRS485Terminal
+                  0x00cd62                  _InitRS485_I
+                  0x00e7b4                  _InitSpi24
+                  0x00e3ca                  _InitTmr1
+                  0x00e3fa                  _InitTmr1_
+                  0x00e440                  _InitTmr2
+                  0x00e45a                  _InitTmr3
+                  0x00e4c8                  _InitTmr4
+                  0x00d15c                  _InitUSBTerminal
+                  0x00cb88                  _InitUart1
+                  0x00e762                  _InitUart4
+                  0x00d2f0                  _Init_IKZ
+                  0x00aeb8                  _KeyCheckMain
+                  0x00aed4                  _KeyHandler
+                  0x00db74                  _MFRC522_AntennaOff
+                  0x00db68                  _MFRC522_AntennaOn
+                  0x00db22                  _MFRC522_Clear_Bit
+                  0x00db80                  _MFRC522_Init
+                  0x00db00                  _MFRC522_ReadByte
+                  0x00daf0                  _MFRC522_Reset
+                  0x00db46                  _MFRC522_Set_Bit
+                  0x00de64                  _MFRC522_SoftPowerDown
+                  0x00de86                  _MFRC522_SoftPowerUp
+                  0x00dace                  _MFRC522_WriteByte
+                  0x00e2a6                  _MainMemoryArrayRead
+                  0x00e228                  _MainMemoryPageToBuffer
+                  0x00e3e2                  _OpenTmr1
+                  0x00e418                  _OpenTmr1_
+                  0x00e474                  _OpenTmr2
+                  0x00e48c                  _OpenTmr3
+                  0x00e4e0                  _OpenTmr4
                   0x00765e                  _PrintDirectionNumber
                   0x00728a                  _PrintDirectionPage10
-                  0x0098c2                  _PrintEventLCD
-                  0x00a29c                  _PrintEventUSB
-                  0x008c3a                  _PrintStatusBosNew
-                  0x00e50c                  _ProcessorInit
-                  0x00cdce                  _RS485_getc
-                  0x00cdbe                  _RS485_testRx
-                  0x00cdc6                  _RS485_testTx
-                  0x00b256                  _ReadADC50
-                  0x00deea                  _ReadCardRC522_1
-                  0x00e362                  _ReadCharFromAt45
+                  0x0098c6                  _PrintEventLCD
+                  0x00a2a0                  _PrintEventUSB
+                  0x008c3e                  _PrintStatusBosNew
+                  0x00e510                  _ProcessorInit
+                  0x00cdd2                  _RS485_getc
+                  0x00cdc2                  _RS485_testRx
+                  0x00cdca                  _RS485_testTx
+                  0x00b25a                  _ReadADC50
+                  0x00deee                  _ReadCardRC522_1
+                  0x00e366                  _ReadCharFromAt45
                   0x006388                  _ReadCurrentPositionAt45
                   0x006bd6                  _ReadEvent
-                  0x00e108                  _ReadFromBufferAt45
-                  0x00e34a                  _ReadLongFromAT45
-                  0x00b39a                  _ReadRegisteredKid
-                  0x00df22                  _ReadSerialNumberKID
-                  0x00dfe0                  _ReadStatusAt45
-                  0x00d300                  _Reset_IKZ
+                  0x00e10c                  _ReadFromBufferAt45
+                  0x00e34e                  _ReadLongFromAT45
+                  0x00b39e                  _ReadRegisteredKid
+                  0x00df26                  _ReadSerialNumberKID
+                  0x00dfe4                  _ReadStatusAt45
+                  0x00d304                  _Reset_IKZ
                   0x0063ee                  _SaveAccessPassword
-                  0x00d306                  _SaveChenel_IKZ
+                  0x00d30a                  _SaveChenel_IKZ
                   0x00635e                  _SaveCurrentPosition
                   0x00647e                  _SaveEvent
                   0x006448                  _SaveModeRs485
                   0x00640e                  _SaveSerialNumberBU
-                  0x00b36c                  _SavingRegisteredKid
-                  0x00b3ea                  _SearchNumberKid
-                  0x00d16c                  _SelectModeRs485
-                  0x00e846                  _SendByteToSpi
+                  0x00b370                  _SavingRegisteredKid
+                  0x00b3ee                  _SearchNumberKid
+                  0x00d170                  _SelectModeRs485
+                  0x00e84a                  _SendByteToSpi
                   0x007254                  _SetAutoDispley
                   0x006ffc                  _SetButtonColor
                   0x00703a                  _SetButtonFont
-                  0x00d312                  _SetChenel_IKZ_M
+                  0x00d316                  _SetChenel_IKZ_M
                   0x0070ea                  _SetKeyPic
                   0x00687c                  _SetStatusIndictionDoor
                   0x0070ac                  _SetTextColor
                   0x0071e2                  _SetTextFont
                   0x0071a4                  _SetTextPic
-                  0x008914                  _SwitchSelect
-                  0x00b62c                  _TerminalLcd
-                  0x00c73e                  _TerminalRs
-                  0x00d2fa                  _Terminal_IKZ
-                  0x00d30c                  _TestChenel_IKZ
-                  0x00b344                  _TestKey
-                  0x00a8a8                  _TransmittArhivUSB
-                  0x00d2b8                  _TransmittRsPacket
-                  0x00e06c                  _WriteToBufferAt45
+                  0x008918                  _SwitchSelect
+                  0x00b630                  _TerminalLcd
+                  0x00c742                  _TerminalRs
+                  0x00d2fe                  _Terminal_IKZ
+                  0x00d310                  _TestChenel_IKZ
+                  0x00b348                  _TestKey
+                  0x00a8ac                  _TransmittArhivUSB
+                  0x00d2bc                  _TransmittRsPacket
+                  0x00e070                  _WriteToBufferAt45
                   0x005a14                  __Atexit
                   0x0058de                  __Closreg
                   0x0059a0                  __DNKfflush
@@ -936,38 +936,38 @@ External Symbols in Program Memory (by name):
                   0x00421c                  __resetPRI
                   0x005304                  __sprintf_cdnopsuxX
                   0x005304                  __sprintf_cdnopuxX
-                  0x00dde6                  _antiCollision
-                  0x00dc40                  _commandTag
-                  0x00c6c2                  _digits
+                  0x00ddea                  _antiCollision
+                  0x00dc44                  _commandTag
+                  0x00c6c6                  _digits
                   0x005322                  _div
                   0x0058f0                  _fclose
                   0x005ac4                  _free
                   0x005338                  _fwrite
                   0x0053e0                  _ldiv
-                  0x00d318                  _main
+                  0x00d31c                  _main
                   0x005b8e                  _malloc
                   0x00540a                  _memchr
                   0x0049da                  _memcpy
-                  0x00dea6                  _readRFID_1
-                  0x00ddae                  _requestTag
+                  0x00deaa                  _readRFID_1
+                  0x00ddb2                  _requestTag
                   0x0049e8                  _strchr
                   0x004a00                  _strlen
                   0x004a0c                  _strncmp
-                  0x00cc04                  _uart1_getc
-                  0x00cb36                  _uart1_putc
-                  0x00cbf4                  _uart1_testRx
-                  0x00cbfc                  _uart1_testTx
-                  0x00e6d4                  _uart4_getc
-                  0x00e714                  _uart4_putc
-                  0x00e6c4                  _uart4_testRx
-                  0x00e6cc                  _uart4_testTx
-                  0x00b4ae                  _xatoi
-                  0x00c544                  _xatoiRs
-                  0x00c4e2                  _xgetsU2
-                  0x00b44c                  _xgetsU4
-                  0x00d148                  _xprintf
-                  0x00ce0a                  _xputc
-                  0x00ce38                  _xputs
+                  0x00cc08                  _uart1_getc
+                  0x00cb3a                  _uart1_putc
+                  0x00cbf8                  _uart1_testRx
+                  0x00cc00                  _uart1_testTx
+                  0x00e6d8                  _uart4_getc
+                  0x00e718                  _uart4_putc
+                  0x00e6c8                  _uart4_testRx
+                  0x00e6d0                  _uart4_testTx
+                  0x00b4b2                  _xatoi
+                  0x00c548                  _xatoiRs
+                  0x00c4e6                  _xgetsU2
+                  0x00b450                  _xgetsU4
+                  0x00d14c                  _xprintf
+                  0x00ce0e                  _xputc
+                  0x00ce3c                  _xputs
                   0x005980                  fclose.XX_elo:_closeall
                   0x004a34                  printf_cdfFnopsuxX.XXeo:_prout
                   0x0052f6                  sprintf_cdnopsuxX.XXeo:_prout
@@ -2145,16 +2145,16 @@ EZBL_AppErasable
                   0x001d10          0x4 LONG 0x447a8 (0x40000 | (ABSOLUTE (ABSOLUTE (__DefaultInterrupt)) & 0xffff))
                   0x001d12          0x4 LONG 0x0 (0x0 | ((ABSOLUTE (ABSOLUTE (__DefaultInterrupt)) & 0x7f0000) >> 0x10))
 
-.const              0x9d14       0x2508 load address 0x001d14  
+.const              0x9d14       0x2506 load address 0x001d14  
                   0x009d14          0x4 LONG 0xffffff
  *(.const)
  .const             0x9d16       0x1e90 build/default/production/functionCP_220419.o
  .const             0xbba6        0x100 build/default/production/functionRS485_K_220118.o
                     0xbba6                  _Crc8Table
- .const             0xbca6        0x496 build/default/production/terminalCP.o
+ .const             0xbca6        0x494 build/default/production/terminalCP.o
                     0xbd38                  _CommandsU4
-                    0xc0bc                  _CommandsU2
- .const             0xc13c         0xe0 build/default/production/atlasCPmain_211227.o
+                    0xc0ba                  _CommandsU2
+ .const             0xc13a         0xe0 build/default/production/atlasCPmain_211227.o
 
 EZBL_ROM_AT_0x0000
  *(EZBL_ROM_AT_0x0000)
@@ -2569,7 +2569,7 @@ __CONFIG1
                   0x0000f8         0x18 build/default/production/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o
                     0x0002                  _APPID_VER_MAJOR = 0x2
                     0x000b                  _APPID_VER_MINOR = 0xb
-                    0x1782                  _APPID_VER_BUILD = 0x1782
+                    0x1788                  _APPID_VER_BUILD = 0x1788
 START GROUP
 LOAD c:/program files (x86)/microchip/xc16/v1.35/bin/bin/../../lib\liblega-pic30-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.35/bin/bin/../../lib\libm-elf.a
@@ -3034,8 +3034,8 @@ EZBL_ROM_AT_0x000000
  .ivt._U1TXInterrupt
                     0x002c          0x2 build/default/production/ezbl_integration/AtlasCP_pcb2H_BOOT_220119.X.merge.o
 
-.text             0x00635e       0x81e8
- .text            0x00635e       0x50ee build/default/production/functionCP_220419.o
+.text             0x00635e       0x81ec
+ .text            0x00635e       0x50f2 build/default/production/functionCP_220419.o
                   0x00635e                  _SaveCurrentPosition
                   0x006388                  _ReadCurrentPositionAt45
                   0x0063ee                  _SaveAccessPassword
@@ -3060,128 +3060,128 @@ EZBL_ROM_AT_0x000000
                   0x00749c                  _IndicationStatusRs
                   0x00765e                  _PrintDirectionNumber
                   0x0076f2                  _IndicatorDirection
-                  0x008914                  _SwitchSelect
-                  0x008a6c                  _DisplayStatusBOS1202
-                  0x008c3a                  _PrintStatusBosNew
-                  0x0097c0                  _CheckDevice
-                  0x009832                  _Check32Device
-                  0x0098c2                  _PrintEventLCD
-                  0x00a132                  _DisplayReadArhiv0525
-                  0x00a29c                  _PrintEventUSB
-                  0x00a8a8                  _TransmittArhivUSB
-                  0x00aa4e                  _CheckIntegralStatus
-                  0x00aab8                  _CheckIntegralSituation
-                  0x00aafe                  _CheckIntegralAuto
-                  0x00ab42                  _IndicationControl
-                  0x00ad1a                  _CheckKeyAuto
-                  0x00adb2                  _CheckKeySound
-                  0x00ae22                  _CheckKeyStart
-                  0x00aeb4                  _KeyCheckMain
-                  0x00aed0                  _KeyHandler
-                  0x00b256                  _ReadADC50
-                  0x00b29a                  _CheckMyPwr
-                  0x00b2ea                  _CheckStausPWR
-                  0x00b344                  _TestKey
-                  0x00b36c                  _SavingRegisteredKid
-                  0x00b39a                  _ReadRegisteredKid
-                  0x00b3ea                  _SearchNumberKid
- .text            0x00b44c       0x16ea build/default/production/terminalCP.o
-                  0x00b44c                  _xgetsU4
-                  0x00b4ae                  _xatoi
-                  0x00b62c                  _TerminalLcd
-                  0x00c4e2                  _xgetsU2
-                  0x00c544                  _xatoiRs
-                  0x00c6c2                  _digits
-                  0x00c718                  _ClrLine
-                  0x00c73e                  _TerminalRs
- .text            0x00cb36        0x7e2 build/default/production/functionRS485_K_220118.o
-                  0x00cb36                  _uart1_putc
-                  0x00cb84                  _InitUart1
-                  0x00cbf4                  _uart1_testRx
-                  0x00cbfc                  _uart1_testTx
-                  0x00cc04                  _uart1_getc
-                  0x00cc44                  _Crc8
-                  0x00cc7c                  _ClrFifo
-                  0x00ccdc                  _InitRS485
-                  0x00cd5e                  _InitRS485_I
-                  0x00cdbe                  _RS485_testRx
-                  0x00cdc6                  _RS485_testTx
-                  0x00cdce                  _RS485_getc
-                  0x00ce0a                  _xputc
-                  0x00ce38                  _xputs
-                  0x00d148                  _xprintf
-                  0x00d158                  _InitUSBTerminal
-                  0x00d16c                  _SelectModeRs485
-                  0x00d254                  _InitRS485Terminal
-                  0x00d26c                  _CopyRsTxPacket
-                  0x00d2b8                  _TransmittRsPacket
-                  0x00d2ec                  _Init_IKZ
-                  0x00d2fa                  _Terminal_IKZ
-                  0x00d300                  _Reset_IKZ
-                  0x00d306                  _SaveChenel_IKZ
-                  0x00d30c                  _TestChenel_IKZ
-                  0x00d312                  _SetChenel_IKZ_M
- .text            0x00d318        0x7b2 build/default/production/atlasCPmain_211227.o
-                  0x00d318                  _main
- .text            0x00daca        0x4e4 build/default/production/DriverMFRC522cp.o
-                  0x00daca                  _MFRC522_WriteByte
-                  0x00daec                  _MFRC522_Reset
-                  0x00dafc                  _MFRC522_ReadByte
-                  0x00db1e                  _MFRC522_Clear_Bit
-                  0x00db42                  _MFRC522_Set_Bit
-                  0x00db64                  _MFRC522_AntennaOn
-                  0x00db70                  _MFRC522_AntennaOff
-                  0x00db7c                  _MFRC522_Init
-                  0x00dc40                  _commandTag
-                  0x00ddae                  _requestTag
-                  0x00dde6                  _antiCollision
-                  0x00de60                  _MFRC522_SoftPowerDown
-                  0x00de82                  _MFRC522_SoftPowerUp
-                  0x00dea6                  _readRFID_1
-                  0x00deea                  _ReadCardRC522_1
-                  0x00df22                  _ReadSerialNumberKID
- .text            0x00dfae        0x3ca build/default/production/driverAt45CP.o
-                  0x00dfae                  _InitAt45
-                  0x00dfba                  _At45Enable
-                  0x00dfd6                  _At45Disable
-                  0x00dfe0                  _ReadStatusAt45
-                  0x00e010                  _EraseAt45
-                  0x00e06c                  _WriteToBufferAt45
-                  0x00e108                  _ReadFromBufferAt45
-                  0x00e1a6                  _BufferToMainMemoryPageE
-                  0x00e224                  _MainMemoryPageToBuffer
-                  0x00e2a2                  _MainMemoryArrayRead
-                  0x00e34a                  _ReadLongFromAT45
-                  0x00e362                  _ReadCharFromAt45
- .text            0x00e378        0x1ce build/default/production/init256GA106AtlasCP.o
-                  0x00e378                  _InitPort
-                  0x00e3c6                  _InitTmr1
-                  0x00e3de                  _OpenTmr1
-                  0x00e3f6                  _InitTmr1_
-                  0x00e414                  _OpenTmr1_
-                  0x00e43c                  _InitTmr2
-                  0x00e456                  _InitTmr3
-                  0x00e470                  _OpenTmr2
-                  0x00e488                  _OpenTmr3
-                  0x00e4a0                  _CloseTmr1
-                  0x00e4ac                  _CloseTmr2
-                  0x00e4b8                  _CloseTmr3
-                  0x00e4c4                  _InitTmr4
-                  0x00e4dc                  _OpenTmr4
-                  0x00e4f4                  _InitADC
-                  0x00e50c                  _ProcessorInit
+                  0x008918                  _SwitchSelect
+                  0x008a70                  _DisplayStatusBOS1202
+                  0x008c3e                  _PrintStatusBosNew
+                  0x0097c4                  _CheckDevice
+                  0x009836                  _Check32Device
+                  0x0098c6                  _PrintEventLCD
+                  0x00a136                  _DisplayReadArhiv0525
+                  0x00a2a0                  _PrintEventUSB
+                  0x00a8ac                  _TransmittArhivUSB
+                  0x00aa52                  _CheckIntegralStatus
+                  0x00aabc                  _CheckIntegralSituation
+                  0x00ab02                  _CheckIntegralAuto
+                  0x00ab46                  _IndicationControl
+                  0x00ad1e                  _CheckKeyAuto
+                  0x00adb6                  _CheckKeySound
+                  0x00ae26                  _CheckKeyStart
+                  0x00aeb8                  _KeyCheckMain
+                  0x00aed4                  _KeyHandler
+                  0x00b25a                  _ReadADC50
+                  0x00b29e                  _CheckMyPwr
+                  0x00b2ee                  _CheckStausPWR
+                  0x00b348                  _TestKey
+                  0x00b370                  _SavingRegisteredKid
+                  0x00b39e                  _ReadRegisteredKid
+                  0x00b3ee                  _SearchNumberKid
+ .text            0x00b450       0x16ea build/default/production/terminalCP.o
+                  0x00b450                  _xgetsU4
+                  0x00b4b2                  _xatoi
+                  0x00b630                  _TerminalLcd
+                  0x00c4e6                  _xgetsU2
+                  0x00c548                  _xatoiRs
+                  0x00c6c6                  _digits
+                  0x00c71c                  _ClrLine
+                  0x00c742                  _TerminalRs
+ .text            0x00cb3a        0x7e2 build/default/production/functionRS485_K_220118.o
+                  0x00cb3a                  _uart1_putc
+                  0x00cb88                  _InitUart1
+                  0x00cbf8                  _uart1_testRx
+                  0x00cc00                  _uart1_testTx
+                  0x00cc08                  _uart1_getc
+                  0x00cc48                  _Crc8
+                  0x00cc80                  _ClrFifo
+                  0x00cce0                  _InitRS485
+                  0x00cd62                  _InitRS485_I
+                  0x00cdc2                  _RS485_testRx
+                  0x00cdca                  _RS485_testTx
+                  0x00cdd2                  _RS485_getc
+                  0x00ce0e                  _xputc
+                  0x00ce3c                  _xputs
+                  0x00d14c                  _xprintf
+                  0x00d15c                  _InitUSBTerminal
+                  0x00d170                  _SelectModeRs485
+                  0x00d258                  _InitRS485Terminal
+                  0x00d270                  _CopyRsTxPacket
+                  0x00d2bc                  _TransmittRsPacket
+                  0x00d2f0                  _Init_IKZ
+                  0x00d2fe                  _Terminal_IKZ
+                  0x00d304                  _Reset_IKZ
+                  0x00d30a                  _SaveChenel_IKZ
+                  0x00d310                  _TestChenel_IKZ
+                  0x00d316                  _SetChenel_IKZ_M
+ .text            0x00d31c        0x7b2 build/default/production/atlasCPmain_211227.o
+                  0x00d31c                  _main
+ .text            0x00dace        0x4e4 build/default/production/DriverMFRC522cp.o
+                  0x00dace                  _MFRC522_WriteByte
+                  0x00daf0                  _MFRC522_Reset
+                  0x00db00                  _MFRC522_ReadByte
+                  0x00db22                  _MFRC522_Clear_Bit
+                  0x00db46                  _MFRC522_Set_Bit
+                  0x00db68                  _MFRC522_AntennaOn
+                  0x00db74                  _MFRC522_AntennaOff
+                  0x00db80                  _MFRC522_Init
+                  0x00dc44                  _commandTag
+                  0x00ddb2                  _requestTag
+                  0x00ddea                  _antiCollision
+                  0x00de64                  _MFRC522_SoftPowerDown
+                  0x00de86                  _MFRC522_SoftPowerUp
+                  0x00deaa                  _readRFID_1
+                  0x00deee                  _ReadCardRC522_1
+                  0x00df26                  _ReadSerialNumberKID
+ .text            0x00dfb2        0x3ca build/default/production/driverAt45CP.o
+                  0x00dfb2                  _InitAt45
+                  0x00dfbe                  _At45Enable
+                  0x00dfda                  _At45Disable
+                  0x00dfe4                  _ReadStatusAt45
+                  0x00e014                  _EraseAt45
+                  0x00e070                  _WriteToBufferAt45
+                  0x00e10c                  _ReadFromBufferAt45
+                  0x00e1aa                  _BufferToMainMemoryPageE
+                  0x00e228                  _MainMemoryPageToBuffer
+                  0x00e2a6                  _MainMemoryArrayRead
+                  0x00e34e                  _ReadLongFromAT45
+                  0x00e366                  _ReadCharFromAt45
+ .text            0x00e37c        0x1ce build/default/production/init256GA106AtlasCP.o
+                  0x00e37c                  _InitPort
+                  0x00e3ca                  _InitTmr1
+                  0x00e3e2                  _OpenTmr1
+                  0x00e3fa                  _InitTmr1_
+                  0x00e418                  _OpenTmr1_
+                  0x00e440                  _InitTmr2
+                  0x00e45a                  _InitTmr3
+                  0x00e474                  _OpenTmr2
+                  0x00e48c                  _OpenTmr3
+                  0x00e4a4                  _CloseTmr1
+                  0x00e4b0                  _CloseTmr2
+                  0x00e4bc                  _CloseTmr3
+                  0x00e4c8                  _InitTmr4
+                  0x00e4e0                  _OpenTmr4
+                  0x00e4f8                  _InitADC
+                  0x00e510                  _ProcessorInit
 
-.dinit            0x00e546        0x17e
- .dinit           0x00e546        0x17e data_init
+.dinit            0x00e54a        0x17e
+ .dinit           0x00e54a        0x17e data_init
 
-.text             0x00e6c4        0x1a0
- .text            0x00e6c4         0xec build/default/production/functionUART24.o
-                  0x00e6c4                  _uart4_testRx
-                  0x00e6cc                  _uart4_testTx
-                  0x00e6d4                  _uart4_getc
-                  0x00e714                  _uart4_putc
-                  0x00e75e                  _InitUart4
- .text            0x00e7b0         0xb4 build/default/production/funcia_spi.o
-                  0x00e7b0                  _InitSpi24
-                  0x00e7f6                  _ChangModeSpi
-                  0x00e846                  _SendByteToSpi
+.text             0x00e6c8        0x1a0
+ .text            0x00e6c8         0xec build/default/production/functionUART24.o
+                  0x00e6c8                  _uart4_testRx
+                  0x00e6d0                  _uart4_testTx
+                  0x00e6d8                  _uart4_getc
+                  0x00e718                  _uart4_putc
+                  0x00e762                  _InitUart4
+ .text            0x00e7b4         0xb4 build/default/production/funcia_spi.o
+                  0x00e7b4                  _InitSpi24
+                  0x00e7fa                  _ChangModeSpi
+                  0x00e84a                  _SendByteToSpi

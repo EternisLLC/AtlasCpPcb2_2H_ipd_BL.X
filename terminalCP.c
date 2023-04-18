@@ -253,7 +253,7 @@ COUNTER_COMMAND ++;
             }
             if(!param[0]){ // переход на 0 страницу
                 while(TxRunRs || TxRunLcd);
-                printf("page0.t0.txt=\"ver%u.%u.%02u\"ЪЪЪ",VerY,VerM,VerD);
+                printf("page0.t0.txt=\"ver%u.%u.%u\"ЪЪЪ",VerY,VerM,VerD);
             }
 //----------------
             if(!CurrentScreen && param[0] == 10){
