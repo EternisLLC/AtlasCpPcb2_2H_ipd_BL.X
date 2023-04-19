@@ -1481,14 +1481,16 @@ void DisplayStatusBOS1202(unsigned char page,UINT16 deviceNumber){
             SwitchSelect(page,IndexBos);
         }
     }
-    if(LcdFlag.Yes /*|| LcdFlag.NewData*/){
+    /*отладка*/if(LcdFlag.Debug)xprintf("NewEventLcdFlag.NewDataBos = %u\r",NewEventLcdFlag.NewDataBos);
+    if(LcdFlag.Yes || NewEventLcdFlag.NewDataBos/**/){
         SwitchSelect(page,IndexBos);
         PrintStatusBosNew(page,IndexBos);
         LcdFlag.Yes = 0;
         LcdFlag.HandDoun = 0;
         LcdFlag.HandUp = 0;
         Interval._1s = 0;
-        LcdFlag.NewData = 0;
+        NewEventLcdFlag.NewDataBos = 0;
+//        LcdFlag.NewData = 0;
     }
 }
 void PrintStatusBosNew(unsigned char page,unsigned int index) {

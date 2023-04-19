@@ -65,6 +65,8 @@ int main(void) {
     TempCommandRs = 0;
     Interval._CheckStatusBU = 1;
     WaitingScreen = 0;
+    ControlFlagCP.NoBurLast = 1;
+    ControlFlagCP.RsBreakLast = 1;
     while(1){
         static UINT16   CounterJampPage;
         while(CurrentScreen > 9 && CurrentScreen != 15 && CurrentScreen != 255){

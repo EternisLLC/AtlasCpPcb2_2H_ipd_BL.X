@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 //тбурблтчлб четуйй ртпзтбннщ
-    #define VERSION 10002
+    #define VERSION 10004
     #define VerY    (VERSION/10000)
     #define VerM    ((VERSION/100)%100)
     #define VerD    (VERSION%100)
