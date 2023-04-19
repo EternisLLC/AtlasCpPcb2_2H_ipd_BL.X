@@ -22,11 +22,14 @@ void __attribute__ ((interrupt,no_auto_psv)) _T3Interrupt (void)
 {
     _T3IF = 0; //сброс вектора прерывания
     Counter10ms ++;
-    if(Counter10ms > 4){
-        Counter10ms = 0;
+    if(!(Counter10ms%5)){
         Interval._50ms = 1;
+        Interval.usb50ms = 1;
     }
-    Interval._10ms = 1;
+//    if(Counter10ms > 4){
+//        Counter10ms = 0;
+//        Interval._50ms = 1;
+//    }
     Interval.Key_10ms = 1;
     if(CounterDelayRs){ // ЙЪН. 30.01.20 CounterDelayRs РЕТЕОЕУО ЙЪ 1 НУ ФБКНЕТБ Ч 10НУ
         CounterDelayRs --;

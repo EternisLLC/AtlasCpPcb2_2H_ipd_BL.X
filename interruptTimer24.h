@@ -2,7 +2,7 @@
 
 
 typedef struct {
-    int _10ms  :1;
+    int usb50ms  :1;
     int _100ms :1;     
     int _1s    :1;
     int _1Sec   :1;

@@ -2017,6 +2017,7 @@ void PrintEventLCD(void) {
             break;
     }
 }
+static UINT16 CounterInactiv;
 void DisplayReadArhiv0525(void) {
     if(CurrentScreen != 8)return;
     if (LcdFlag.NewPage) {
@@ -2083,6 +2084,12 @@ void DisplayReadArhiv0525(void) {
     }
     if(LcdFlag.Yes ){
         PrintEventLCD();            // печатаем сообщение на экран
+        CounterInactiv ++;
+        if(!(CounterInactiv % 30)){
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page0.Inactiv1.val=60ЪЪЪ"); // задаем время выхода на 0 экран при отсутствии актвности оператора
+            printf("%s",LcdBufferData);
+        }
         LcdFlag.Yes = 0;
         LcdFlag.HandDoun = 0;
         LcdFlag.HandUp = 0;
@@ -2092,7 +2099,7 @@ void DisplayReadArhiv0525(void) {
 
 void PrintEventUSB(void) {
     if (BufferReadEvent.TypeEvent != 255) {
-        Interval._50ms = 0;
+        Interval.usb50ms = 0;
         xprintf("%u-%02u-%02u %02u:%02u:%02u ",
                 BufferReadEvent.Year, BufferReadEvent.Month, BufferReadEvent.Day,
                 BufferReadEvent.Hour, BufferReadEvent.Minute, BufferReadEvent.Second);
@@ -2254,12 +2261,16 @@ void TransmittArhivUSB(void) {
         NumberEvRead = CurrentEventWrite - 1;
         while(TxRunRs || TxRunLcd);
         if(!USB_EN){
-            printf("page9.t2.txt=\"USB НЕ готов\"ЪЪЪ");
+            sprintf(LcdBufferData,"page9.t2.txt=\"USB НЕ готов\"ЪЪЪ");
             LED_USB_REDY = 1;
         }else{
-            printf("page9.t2.txt=\"USB готов\"ЪЪЪ");
+            sprintf(LcdBufferData,"page9.t2.txt=\"USB готов\"ЪЪЪ");
             LED_USB_REDY = 0;
         }
+        printf("%s",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page0.Inactiv1.val=600ЪЪЪ"); // задаем время выхода на 0 экран при отсутствии актвности оператора
+        printf("%s",LcdBufferData);
         LcdFlag.Select =0;
     }
     // изм. 27.01.20
@@ -2269,17 +2280,20 @@ void TransmittArhivUSB(void) {
         if (USB_EN) {
             // USB подключен
             if (!LcdFlag.Select) {
-                printf("page9.t2.txt=\"USB готов\"ЪЪЪ");
+                sprintf(LcdBufferData,"page9.t2.txt=\"USB готов\"ЪЪЪ");
             }
         } else {
             // USB не подключен
             if (!LcdFlag.Select) {
-                printf("page9.t2.txt=\"USB НЕ готов\"ЪЪЪ");
+                sprintf(LcdBufferData,"page9.t2.txt=\"USB НЕ готов\"ЪЪЪ");
             } else {
-                printf("click bt0,1ЪЪЪ");
-                printf("page9.t2.txt=\"передача АРХИВА прервана\"ЪЪЪ");
+                sprintf(LcdBufferData,"click bt0,1ЪЪЪ");
+                printf("%s",LcdBufferData);
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page9.t2.txt=\"передача АРХИВА прервана\"ЪЪЪ");
                 LcdFlag.Select = 0;
             }
+            printf("%s",LcdBufferData);
         }
         LED_USB_REDY = !USB_EN;
     }
@@ -2287,11 +2301,18 @@ void TransmittArhivUSB(void) {
     if (LcdFlag.Select && !LED_USB_REDY) {
         if (NumberEvRead == (CurrentEventWrite - 1)) {
             while(TxRunRs || TxRunLcd);
-            printf("page9.t2.txt=\"передача АРХИВА на ПК\"ЪЪЪ");
+            sprintf(LcdBufferData,"page9.t2.txt=\"передача АРХИВА на ПК\"ЪЪЪ");
+            printf("%s",LcdBufferData);
         }
         if(!ENTX485 && ENTX485_I){
             ReadEvent(NumberEvRead);
-            while(!Interval._50ms)continue;
+            while(!Interval.usb50ms)continue;
+            CounterInactiv ++;
+            if(!(CounterInactiv % 100)){
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page0.Inactiv1.val=60ЪЪЪ"); // задаем время выхода на 0 экран при отсутствии актвности оператора
+                printf("%s",LcdBufferData);
+            }
             PrintEventUSB();// изм. 27.01.20
             if (NumberEvRead) {
                 NumberEvRead--;
@@ -2303,12 +2324,18 @@ void TransmittArhivUSB(void) {
     if (NumberEvRead == CurrentEventWrite && LcdFlag.Select) {
         // память прочитана завершаем процесс чтения
         while(TxRunRs || TxRunLcd);
-        printf("page9.bt0.val=0ЪЪЪ");
+        sprintf(LcdBufferData,"page9.bt0.val=0ЪЪЪ");
+        printf("%s",LcdBufferData);
         while(TxRunRs || TxRunLcd);
-        printf("page9.bt0.txt=\"ПЕРЕДАТЬ\"ЪЪЪ");
+        sprintf(LcdBufferData,"page9.bt0.txt=\"ПЕРЕДАТЬ\"ЪЪЪ");
+        printf("%s",LcdBufferData);
         while(TxRunRs || TxRunLcd);
-        printf("page9.t2.txt=\"передача АРХИВА завершена\"ЪЪЪ");
+        sprintf(LcdBufferData,"page9.t2.txt=\"передача АРХИВА завершена\"ЪЪЪ");
         xprintf("оепедювю юпухбю гюбепьемю\r");
+        printf("%s",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page0.Inactiv1.val=60ЪЪЪ"); // задаем время выхода на 0 экран при отсутствии актвности оператора
+        printf("%s",LcdBufferData);
         LcdFlag.Select = 0;
     }
 }
