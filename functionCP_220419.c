@@ -869,8 +869,8 @@ void IndicatorDirection(UINT8 dir){
                         sprintf(lcdline,"%s","πυσλ");
                         break;
                 }
-                sprintf(LcdBufferData,"page11.t1.txt=\"αυπτ\\r%s\\r%s σ.ξ. %lu\\rΪΑÒΕΗΙΣΤÒΙÒΟΧΑΞΟ\\rβοσ:  %u ΫΤ.\"ÿÿÿ"
-                        ,lcdline,((StatusBU[SelectedDirection].SerialNumber%1000) < 501)? "βυς":"ςλξ",
+                sprintf(LcdBufferData,"page11.t1.txt=\"αυπτ <A%u>\\r%s\\r%s σ.ξ. %lu\\rΪΑÒΕΗΙΣΤÒΙÒΟΧΑΞΟ\\rβοσ:  %u ΫΤ.\"ÿÿÿ"
+                        ,ClassAlgoritm[SelectedDirection],lcdline,((StatusBU[SelectedDirection].SerialNumber%1000) < 501)? "βυς":"ςλξ",
                         StatusBU[SelectedDirection].SerialNumber,StatusBU[SelectedDirection].QuantityBos);
                 printf("%s",LcdBufferData);
 // χωχοδιν ιξζοςναγιΰ ο σοστορξιι ιπδ
@@ -1190,8 +1190,8 @@ void IndicatorDirection(UINT8 dir){
                             sprintf(lcdline,"%s","πυσλ");
                             break;
                     }
-                sprintf(LcdBufferData,"page16.t0.txt=\"σπσ\\r%s\\r%s σ.ξ. %lu\\rΪΑÒΕΗΙΣΤÒΙÒΟΧΑΞΟ\\rιπδ:  %u ΫΤ.\"ÿÿÿ"
-                        ,lcdline,((StatusBU[SelectedDirection].SerialNumber%1000) < 501)? "βυς":"ςλξ",
+                sprintf(LcdBufferData,"page16.t0.txt=\"σπσ <%X>\\r%s\\r%s σ.ξ. %lu\\rΪΑÒΕΗΙΣΤÒΙÒΟΧΑΞΟ\\rιπδ:  %u ΫΤ.\"ÿÿÿ"
+                        ,(ClassAlgoritm[SelectedDirection]-1),lcdline,((StatusBU[SelectedDirection].SerialNumber%1000) < 501)? "βυς":"ςλξ",
                         StatusBU[SelectedDirection].SerialNumber,StatusBU[SelectedDirection].QuantityBos);
                 printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                 // χωχοδιν ιξζοςναγιΰ ο σοστορξιι ιπδ
@@ -1233,6 +1233,9 @@ void IndicatorDirection(UINT8 dir){
             if(LcdFlag.NewPage || LcdFlag.NewData || NewEventLcdFlag.NewStaus || NewEventLcdFlag.NewSituation){
                 PrintDirectionNumber(CurrentScreen);
                 LcdFlag.NewPage = 0;
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page17.t0.txt=\"ποφαςξαρ σιηξαμιϊαγιρ ΑΜΗΟÒΙΤΝ %X\"ÿÿÿ",(ClassAlgoritm[SelectedDirection]-1));
+                printf("%s",LcdBufferData);
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page17.t2.txt=\"%s\"ÿÿÿ",((StatusBU[SelectedDirection].SerialNumber%1000) < 501)?"βυς":"ςλξ");
                 printf("%s",LcdBufferData);
