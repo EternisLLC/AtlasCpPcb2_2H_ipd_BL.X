@@ -179,6 +179,7 @@ char   LcdBufferData[128];
 static UINT16 COUNTER_COMMAND;
 static UINT8  redy; // изм. 01.04.22
 // изм. 29.03.22 #include    "iButton.h"
+//inline 
 void TerminalLcd (void){
 unsigned int CounterCommands=0;                                                 //ЯВ╦РВХЙ ЯОХЯЙЮ ЙНЛЮМД
 unsigned int CounterParam=0;                                                    //ЯВ╦РВХЙ ОЮПЮЛЕРПНБ
@@ -305,18 +306,18 @@ COUNTER_COMMAND ++;
                         }
                         break;
                     case 10:
-                        if(!redy){
-                            WaitingScreen = 0;              // переменной WaitingScreen присваеваем 0 номер страницы на которую выполняется переход
-                            LcdFlag.WaitNewScreen1 = 1;      // выставляем флаг нового перехода
-                            while(TxRunRs || TxRunLcd);
-                            sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
-                            LcdFlag.NewPage = 1;
-                            CurrentScreen = 0;
-                            printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1a\r",LcdBufferData);
-                            /*отладка*/if(LcdFlag.Debug)xprintf("Device no redy\r");
-                        }else{
-                            /*отладка*/if(LcdFlag.Debug)xprintf("Device redy\r");
-                        }
+//                        if(!redy){
+//                            WaitingScreen = 0;              // переменной WaitingScreen присваеваем 0 номер страницы на которую выполняется переход
+//                            LcdFlag.WaitNewScreen1 = 1;      // выставляем флаг нового перехода
+//                            while(TxRunRs || TxRunLcd);
+//                            sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
+//                            LcdFlag.NewPage = 1;
+//                            CurrentScreen = 0;
+//                            printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1a\r",LcdBufferData);
+//                            /*отладка*/if(LcdFlag.Debug)xprintf("Device no redy\r");
+//                        }else{
+//                            /*отладка*/if(LcdFlag.Debug)xprintf("Device redy\r");
+//                        }
                         break;
                     case 11:
                         CounterCheckBU = 0;
@@ -381,19 +382,52 @@ COUNTER_COMMAND ++;
                     CounterCheckBU = 0;
                     Interval._1min = 1;
                 }
-                if(WaitingScreen == 111){
-                    if(ClassAlgoritm[SelectedDirection] < 11){
-                        WaitingScreen = 11;
-                    }else{
-                        WaitingScreen = 16;
-                    }
+                switch(WaitingScreen){
+                    default:
+                        break;
+                    case 10:
+                        if(!CurrentScreen){
+                            redy = 0;
+                            // проверяем еа наличии зарегистрированных БУ
+                            for(index = 1; (index < 11 && !redy); index ++){
+                                if(StatusBU[index].SerialNumber){
+                                   redy = 1; 
+                                }
+                            }
+                            if(!redy){
+                                WaitingScreen = 255;
+                                LcdFlag.WaitNewScreen1 = 0;      // снимаем флаг нового перехода
+                            }
+                            
+                        }
+                        break;
+                    case 19:
+                        if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
+                        break;
+                    case 20:
+                        DeviceNumber = (UINT16) param[2];
+                        break;
+                    case 111:
+                        if(ClassAlgoritm[SelectedDirection] < 11){
+                            WaitingScreen = 11;
+                        }else{
+                            WaitingScreen = 16;
+                        }
+                        break;
                 }
-                if(WaitingScreen == 19){
-                    if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
-                }
-                if(WaitingScreen == 20){
-                    DeviceNumber = (UINT16) param[2];
-                }
+//                if(WaitingScreen == 111){
+//                    if(ClassAlgoritm[SelectedDirection] < 11){
+//                        WaitingScreen = 11;
+//                    }else{
+//                        WaitingScreen = 16;
+//                    }
+//                }
+//                if(WaitingScreen == 19){
+//                    if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
+//                }
+//                if(WaitingScreen == 20){
+//                    DeviceNumber = (UINT16) param[2];
+//                }
                 if(CurrentScreen == 15){
                     SOUND = TempSound;
                     LED_ERROR = TempLedError;
