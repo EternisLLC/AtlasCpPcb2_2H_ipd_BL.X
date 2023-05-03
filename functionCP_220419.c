@@ -792,6 +792,7 @@ UINT16  DeviceNumber;
 // выводим на экран информацию о направлении
 void IndicatorDirection(UINT8 dir){
     UINT8 nn;
+    
     switch(CurrentScreen){
         case MAIN_MENU:
 // обновление всего экрана при первом выходе на него

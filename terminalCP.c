@@ -942,6 +942,7 @@ unsigned int    tempLine;
                     }
                     StatusBU[0].FlagErrRoom.ErrByte = (UINT8)paramRs[10];
                     if(StatusBU[0].FlagErrRoom.ErrByte != StatusBU[DirectControl].FlagErrRoom.ErrByte){
+                        if(LcdFlag.Debug)xprintf("ErrByteN 0x%02X, ErrByteL 0x%02X\r",StatusBU[0].FlagErrRoom.ErrByte,StatusBU[DirectControl].FlagErrRoom.ErrByte);
                         NewEventLcdFlag.NewStaus = 1;
                     }
 // изм. 25.03.22                    
@@ -953,7 +954,8 @@ unsigned int    tempLine;
                             TempCommandRs = 6;  // команда сброс
                             FildFlagsPcb2[0].Reset = 0;
                         }
-                        if(FildFlagsPcb2[0].ByteFlagRoom_Pcb2 != FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2){
+                        if((FildFlagsPcb2[0].ByteFlagRoom_Pcb2 & 0x07) != (FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2 & 0x07)){
+                            if(LcdFlag.Debug)xprintf("ByteFlagRoom_Pcb2N 0x%02X, ByteFlagRoom_Pcb2L 0x%02X\r",FildFlagsPcb2[0].ByteFlagRoom_Pcb2,FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2);
                             NewEventLcdFlag.NewStaus = 1;
                         }
                     }

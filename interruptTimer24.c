@@ -74,12 +74,17 @@ void __attribute__ ((interrupt,no_auto_psv)) _T2Interrupt (void)
             }
         }
     }
+    if(!(Counter100ms%5)){
+        Interval._500ms = 1;
+    }
     Interval._100ms = 1;
     Interval._SoundCtrl = 1;
     _T2IF = 0;								//сброс вектора прерывания
 } // T3 Interrupt
+UINT16 CounterWork;
 void __attribute__ ((interrupt,no_auto_psv)) _T4Interrupt (void)
 {
+    CounterWork ++;
     if(CounterDelayMs)CounterDelayMs --;
     _T4IF = 0;								
 }

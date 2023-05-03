@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>AtlasCpPcb2_2HBL_ver.1.0.6</name>
+            <name>AtlasCpPcb2_2HBL_ver.1.0.7</name>
             <creation-uuid>35347d17-9942-48bc-9855-301626fe0746</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

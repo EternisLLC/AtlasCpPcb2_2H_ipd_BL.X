@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 //тбурблтчлб четуйй ртпзтбннщ
-    #define VERSION 10006
+    #define VERSION 10007
     #define VerY    (VERSION/10000)
     #define VerM    ((VERSION/100)%100)
     #define VerD    (VERSION%100)
@@ -195,12 +195,12 @@ extern "C" {
     }FildControlBits;
     typedef union{
         struct{
-            UINT16  NewSituation:1;
-            UINT16  NewStaus    :1;
-            UINT16  NewAuto     :1;
-            UINT16  NewOut      :1;
-            UINT16  NewDataBos  :1;
-            UINT16  RedyDataBos :1;
+            UINT16  NewSituation:1; //1
+            UINT16  NewStaus    :1; //2
+            UINT16  NewAuto     :1; //4
+            UINT16  NewOut      :1; //8
+            UINT16  NewDataBos  :1; //16
+            UINT16  RedyDataBos :1; //32
             UINT16  NewReserv   :10;
         };
         UINT16 NewEventLcdWord;

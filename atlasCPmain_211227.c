@@ -118,8 +118,9 @@ int main(void) {
                     TempCommandRs = 0;
                 }
             }
-            if(Interval._1Sec){
+            if(Interval._1Sec/*_500ms_1Sec*/){
                 if(!Interval._CheckStatusBU){
+                    CounterWork = 0;
                     IndicatorDirection(DirectControl);
                     do{
                         DirectControl ++;
@@ -144,9 +145,10 @@ int main(void) {
 //                            LcdFlag.NewData = 1;
                         }
                     }while(!StatusBU[DirectControl].SerialNumber/* && DirectControl != 1*/);
+                    /*отладка*/if(LcdFlag.Debug)xprintf("CounterWork %u\r",CounterWork);
                     Interval._CheckStatusBU = 1;
                 }
-                /*if(CurrentScreen != 13)*/Interval._1Sec = 0;
+                /*if(CurrentScreen != 13)*/Interval._1Sec/*_500ms*/ = 0;
                 Reset_IKZ ();
                                            
             }
