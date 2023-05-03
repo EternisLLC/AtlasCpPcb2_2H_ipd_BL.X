@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2HAver_ipd_230202BL.X/functionCP_220419.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2HBL_ver.1.0.6.X/atlasCPmain_211227.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2HBL_ver.1.0.6.X/interruptTimer24.c</file>
+            <file>file:/F:/projekt/Garant433/ControlPanel_A/CP_A_program_pcb2/AtlasCPpcb_2_0/AtlasCpPcb2_2HBL_ver.1.0.6.X/terminalCP.c</file>
         </group>
     </open-files>
 </project-private>

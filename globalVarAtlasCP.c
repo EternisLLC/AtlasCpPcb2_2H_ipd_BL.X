@@ -1,6 +1,6 @@
 #include    "alwaysCP_210728.h"
 
-
+UINT8           DirectControl = 1;
 UINT8           CurrentScreen = 255; // номер текущего экрани NEXTION
 UINT8           PreviousScreen;     // экран с которого выполняется переход
 UINT8           SelectedDirection = 0; /* переменная определяющее выбранное направление

@@ -12,10 +12,10 @@
 extern "C" {
 #endif
 //РАСПАКРВКА ВЕРСИИ ПРОГРАММЫ
-    #define VERSION 230202
-    #define VerY    VERSION/10000
-    #define VerM    (VERSION/100)%100
-    #define VerD    VERSION%100    
+    #define VERSION 10007
+    #define VerY    (VERSION/10000)
+    #define VerM    ((VERSION/100)%100)
+    #define VerD    (VERSION%100)
     #define FCY 32000000UL/2
     // ++++++++ГЛОБАЛЬНЫЕ ОПРЕДЕЛЕНИЯ++++++++++++++
     typedef unsigned char   UINT8;
@@ -173,16 +173,7 @@ extern "C" {
             };
             unsigned char StatusByte;     // новое интегральное значение состояния прибора
         };
-//        union {
-//            struct{
-//                //unsigned char BosLoop0:2;          //состояние ШС ПИ 0-норма, 1- внимание, 2- пожар, 3 - 130град
-//                //unsigned char BosLoop1:2;
-//                //unsigned char BosSituation:2;      //интегральное состояние обстановки 0-норма, 1-внимание, 2-пожар,3-пуск
-//                //unsigned char BosStatusActivatora:1;// состояние активатора 0-не стрелял, 1-отстрелялся
-//                //unsigned char BosCapacitorRedy:1;  // готовность накопительного конденсатора к выстрелу 0-разряжен, 1-заряжен
-//            };
-            unsigned char AlarmByte;//новое интегральное значение обстановки и этапа пуска
-//        };
+        unsigned char AlarmByte;//новое интегральное значение обстановки и этапа пуска
         signed int    TemperaturaSensor[2];
     }UnionBosStatus;
     typedef union{
@@ -204,12 +195,12 @@ extern "C" {
     }FildControlBits;
     typedef union{
         struct{
-            UINT16  NewSituation:1;
-            UINT16  NewStaus    :1;
-            UINT16  NewAuto     :1;
-            UINT16  NewOut      :1;
-            UINT16  NewDataBos  :1;
-            UINT16  RedyDataBos :1;
+            UINT16  NewSituation:1; //1
+            UINT16  NewStaus    :1; //2
+            UINT16  NewAuto     :1; //4
+            UINT16  NewOut      :1; //8
+            UINT16  NewDataBos  :1; //16
+            UINT16  RedyDataBos :1; //32
             UINT16  NewReserv   :10;
         };
         UINT16 NewEventLcdWord;
@@ -237,8 +228,6 @@ extern "C" {
     extern UINT32           TempSerialNumberBUR; // регистр временного хранения серийного номера удаляемого БУР
     extern UINT8            DirectControl;
     extern UINT16           CounterDelayStart[11];
-//    extern UINT8            CounterDelayDoor[12];
-    
     // изм. 24.03.22
     extern UINT8           Bright;
     extern UINT8           CounterLcdSleep;

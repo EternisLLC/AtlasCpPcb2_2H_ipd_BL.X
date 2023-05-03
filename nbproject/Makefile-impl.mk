@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=AtlasCpPcb2_2H_ipd_BL.X
+PROJECTNAME=AtlasCpPcb2_2HBL_ver.1.0.7.X
 
 # Active Configuration
 DEFAULTCONF=default

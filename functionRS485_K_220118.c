@@ -3,9 +3,6 @@
 #include    <libpic30.h>
 #include    <stdbool.h>
 
-//#include    "AlwaysBur.h"
-//#include    "UART24_K.h"
-
 #include    "alwaysCP_210728.h"
 #include    "FunctionRS485_K.h"
 
@@ -32,13 +29,7 @@ static volatile struct {
 void uart1_putc (unsigned char d)
 {
 	int i;
-	while (TxFifoU1.ct >= SIZE_BUFFER_TXU1){
-//+++++++++++++++
-//        if(!_U1TXIF && TxRun){
-//            _U1TXIF = 1;
-//        }
-//++++++++++++++++
-    }
+	while (TxFifoU1.ct >= SIZE_BUFFER_TXU1);
 	i = TxFifoU1.wi;		
 	TxFifoU1.buff[i++] = d; //запись в Tx FIFO буфер одного байта //ГЮОХЯЭ Б Tx FIFO АСТЕП НДМНЦН АЮИРЮ
 	TxFifoU1.wi = i % SIZE_BUFFER_TXU1;
@@ -70,8 +61,6 @@ void InitUart1 (unsigned long bps)
     //инициализация UART1 
 	U1BRG = FCY / 4 / bps - 1;
     U1MODEbits.BRGH = 1;
-//    _RP29R =_RPOUT_U1TX;        //подключение модуля TX1 к ножке RP29//ОНДЙКЧВЕМХЕ ЛНДСКЪ TX1 Й МНФЙЕ RP29
-//    _U1RXR = 14;                //подключение модуля RX1 к ножке PR14//ОНДЙКЧВЕМХЕ ЛНДСКЪ RX1 Й МНФЙЕ PR14
     RPOR15bits.RP30R = 0x0003;    //RF2->UART1:U1TX
     RPINR18bits.U1RXR = 0x002D;    //RF6->UART1:U1RX
 	//НВХЯРЙЮ ЯВ╦РВХЙНБ Х СЙЮГЮРЕКЕИ Tx/Rx FIFO АСТЕПНБ
@@ -243,29 +232,15 @@ void InitRS485 (unsigned long bps)
     _U3TXIP = 4;
     _U3RXIP = 4;
     _U3ERIP = 4;
-    
-//	_U3RXIE = 0;
-//	_U3TXIE = 0;
     U3MODEbits.UARTEN = 0;
 	U3STAbits.UTXEN = 0;
-//    _RP10R = 0;       //отключение ножки RP10 от модуля TX3 //НРЙКЧВЕМХЕ МНФЙХ RP10 НР ЛНДСКЪ TX3  
-//    _U3RXR = 0x3F;    //отключение модуля RX3 от ножки PR17//НРЙКЧВЕМХЕ ЛНДСКЪ RX3 НР МНФЙХ PR17
+    _RP16R = 0;       //отключение ножки RP16 от модуля TX3 //НРЙКЧВЕМХЕ МНФЙХ RP10 НР ЛНДСКЪ TX3  
 	//ХМХЖХЮКХГЮЖХЪ UART1 
 	U3BRG = FCY / 4 / bps - 1;
-//    _RP10R =_RPOUT_U3TX;        //подключение модуля TX3 к ножке RP10//ОНДЙКЧВЕМХЕ ЛНДСКЪ TX3 Й МНФЙЕ RP10
-//    _U3RXR = 17;                //подключение модуля RX3 к ножке PR17//ОНДЙКЧВЕМХЕ ЛНДСКЪ RX3 Й МНФЙЕ PR17
-//ZZZZZZZZZZZZZZZZZZZZZZZZ 15.06.22 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-//    RPINR17bits.U3RXR = 0x001D;    //RB15->UART3:U3RX
-//    RPOR7bits.RP14R = 0x001C;    //RB14->UART3:U3TX
-//    RPOR13bits.RP26R = 0x001C;    //RG7->UART3:U3TX
-    
-//ZZZZZZZZZZZZZZZZZZZZZZZZ 15.06.22 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-//    _RP16R =  _RPOUT_U3TX;    // изм для pcb2.2 для TD331S485H-A //RF3->UART3:U3TX 
-    _RP16R = 0; // изм для pcb2.2 для TD331S485H-A
+    _RP16R =  _RPOUT_U3TX;    // изм для pcb2.2 для TD331S485H-A //RF3->UART3:U3TX 
+//    _RP16R = 0; // изм для pcb2.2 для TD331S485H-A
     _RP14R =  _RPOUT_U3TX;    //RB14->UART3:U3TX
     _U3RXR = 29;    //RB15->UART3:U3RX
-     //ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-    
     //НВХЯРЙЮ ЯВ╦РВХЙНБ Х СЙЮГЮРЕКЕИ Tx/Rx FIFO АСТЕПНБ
     //очистка счётчиков и указателей Tx/Rx FIFO буферов
     ClrFifo();
@@ -289,7 +264,7 @@ void InitRS485_I (unsigned long bps)
 // ХМХЖХЮКХГЮЖХЪ МНФЙХ СОПЮБКЕМХЪ ОЕПЕДЮВЕИ RS485_I
 // инициализация ножки управления передачей RS485
     ENTX485_I = 1;
-    //TRIS_ENTX485_I = 0;   // изменения для pcb 2.2 и TD331S485H-A
+    TRIS_ENTX485_I = 0;   // изменения для pcb 2.2 и TD331S485H-A
     _TRISG7 = 0;
     //БШЙКЧВЕМХЕ UART Tx/Rx ОПЕПШБЮМХИ
     //выключение UART Tx/Rx прерываний
@@ -301,21 +276,14 @@ void InitRS485_I (unsigned long bps)
     _U2RXIP = 4;
     _U2ERIP = 4;
     
-//	_U2RXIE = 0;
-//	_U2TXIE = 0;
     U2MODEbits.UARTEN = 0;
 	U2STAbits.UTXEN = 0;
 
 //	//ХМХЖХЮКХГЮЖХЪ UART2 
     //инициализация UART2 
 	U2BRG = FCY / 4 / bps - 1;
-//ZZZZZZZZZZZZZZZZZZZZZZZZ 15.06.22 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-//    RPINR19bits.U2RXR = 0x0015;    //RG6->UART2:U2RX
-//ZZZZZZZZZZZZZZZZZZZZZZZZ 15.06.22 ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-//    RPINR19bits.U2RXR = 0x0011;    //RF5->UART2:U2RX
     _U2RXR = 17;
 //ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-    
     //НВХЯРЙЮ ЯВ╦РВХЙНБ Х СЙЮГЮРЕКЕИ Tx/Rx FIFO АСТЕПНБ
     //очистка счётчиков и указателей Tx/Rx FIFO буферов
     ClrFifo();
@@ -358,50 +326,8 @@ unsigned char RS485_getc (void)
 	return d;
 }
 
-//----------- нРОПaБЙЮ НДМНЦН АЮИРЮ Б Tx FIFO АСТЕП ------------------
-//----------- Отпрaвка одного байта в Tx FIFO буфер ------------------
-//void RS485_putc (unsigned char d)
-//{
-//	int i;
-//	unsigned char delay;
-//    while (TxFifoRs.ctRsTx >= SIZE_BUFFER_TXRS){
-//     Nop();	//ждём, если Tx FIFO буфер//ФД╦Л, ЕЯКХ Tx FIFO АСТЕП
-//    }
-//	i = TxFifoRs.wiRsTx;		
-//	TxFifoRs.buffRsTx[i++] = d; //запись в Tx FIFO буфер одного байта//ГЮОХЯЭ Б Tx FIFO АСТЕП НДМНЦН АЮИРЮ
-//    if(d != '\r' && d != '\n' && d != 0){
-//        crc_value = Crc8Table[crc_value ^ d];
-//    }else{
-//        crc_value = 0;
-//    }
-//	TxFifoRs.wiRsTx = i % SIZE_BUFFER_TXRS;
-//	_DI();
-//	TxFifoRs.ctRsTx++;
-//	if (!TxRunRs) {//если передача по UART Tx не ведётся, то ..//ЕЯКХ ОЕПЕДЮВЮ ОН UART Tx МЕ БЕД╦РЯЪ, РН ..
-//		TxRunRs = 1; //установка флага - признака передачи//СЯРЮМНБЙЮ ТКЮЦЮ - ОПХГМЮЙЮ ОЕПЕДЮВХ
-//        //-------------------------------------29.11.21------------------------------        
-//        //------бЙКЧВЕМХЕ ОЕПЕДЮВХ ОН МЮОПЮБКЕМХЪЛ RS485------------------------
-//        //------Включение передачи по направлениям RS485------------------------
-//        U3STAbits.UTXEN = 1;
-//        if(DirRS485.UART_TX3)
-//            ENTX485 = 1;
-//        if(DirRS485.UART_TX2)
-//            _RP16R = _RPOUT_U3TX;    // изм для pcb2.2 для TD331S485H-A
-//            ENTX485_I = 0;  // TXD RS485_I программно подключен к выходу TXD RS485
-//                            // TXD RS485_I ОПНЦПЮЛЛМН ОНДЙКЧВЕМ Й БШУНДС TXD RS485
-////-------------------------------------29.11.21------------------------------  
-//        for(delay = 0; delay < 60; delay ++);//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-////        ENTX485 = 1;
-//		_U3TXIE = 1;	//разрешения прерывания от UART3 Tx//ПЮГПЕЬЕМХЪ ОПЕПШБЮМХЪ НР UART3 Tx
-////        _U3TXIF = 1;
-//	}
-//	_EI();
-//}
-
 #define xdev_out(func) xfunc_out = (void(*)(unsigned char))(func)
-//extern void (*xfunc_out)(unsigned char);
 #define xdev_in(func) xfunc_in = (unsigned char(*)(void))(func)
-//extern unsigned char (*xfunc_in)(void);
 static char *outptr;
 unsigned char (*xfunc_in)(void);	/* Pointer to the input stream */
 void (*xfunc_out)(unsigned char);	/* Pointer to the output stream */
@@ -520,8 +446,6 @@ ErrorRS ErrorDirRS485;     //-----------------------------29.11.21--------------
 
 void InitUSBTerminal (unsigned long bps){
     InitUart1 (bps);
-//	xdev_in(RS485_getc);		//инициализация входного потока//ХМХЖХЮКХГЮЖХЪ БУНДМНЦН ОНРНЙЮ
-//	xdev_out(RS485_putc);       //инициализация выходного потока//ХМХЖХЮКХГЮЖХЪ БШУНДМНЦН ОНРНЙЮ
     xdev_in(uart1_getc);		//инициализация входного потока//ХМХЖХЮКХГЮЖХЪ БУНДМНЦН ОНРНЙЮ
 	xdev_out(uart1_putc);       //инициализация выходного потока//ХМХЖХЮКХГЮЖХЪ БШУНДМНЦН ОНРНЙЮ
 }
@@ -597,15 +521,7 @@ void InitRS485Terminal (unsigned long bps){
     InitRS485_I(bps);//----------------------------29.11.21---------------------
     DirRS485.DirRS = 0b00111111;//включены все направления RS485--------29.11.21---------
                                 //БЙКЧВЕМШ БЯЕ МЮОПЮБКЕМХЪ RS485--------29.11.21---------
-//    CLOSE_RX2_UART();//Тест отключения направления//рЕЯР НРЙКЧВЕМХЪ МЮОПЮБКЕМХЪ--------29.11.21---------
-//    CLOSE_RX3_UART();//Тест отключения направления//рЕЯР НРЙКЧВЕМХЪ МЮОПЮБКЕМХЪ--------29.11.21---------
-//    CLOSE_UART_TX2();//Тест отключения направления//рЕЯР НРЙКЧВЕМХЪ МЮОПЮБКЕМХЪ--------29.11.21---------
-//    CLOSE_UART_TX3();//Тест отключения направления//рЕЯР НРЙКЧВЕМХЪ МЮОПЮБКЕМХЪ--------29.11.21---------
-//    CLOSE_RX3_TX2();
-//    CLOSE_RX2_TX3();
     SelectModeRs485(ModeRs);    // 03.10.22
-//    xdev_in(RS485_getc);		//инициализация входного потока//ХМХЖХЮКХГЮЖХЪ БУНДМНЦН ОНРНЙЮ
-//	xdev_out(RS485_putc);       //инициализация выходного потока//ХМХЖХЮКХГЮЖХЪ БШУНДМНЦН ОНРНЙЮ
 }
 UINT8 CounterErrorRs485;
 
@@ -633,12 +549,10 @@ void TransmittRsPacket(void){
     CopyRsTxPacket();
     U3STAbits.UTXEN = 1;
     //------Включение передачи по направлениям RS485------------------------
-        if(DirRS485.UART_TX3)
-        ENTX485 = 1;
-        if(DirRS485.UART_TX2)
-        _RP16R = _RPOUT_U3TX;    // изм для pcb2.2 для TD331S485H-A
-        ENTX485_I = 0;  // TXD RS485_I программно подключен к выходу TXD RS485
-//    pctxrs =  &RsTxBuffer[0];//ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    if(DirRS485.UART_TX3)
+    ENTX485 = 1;
+    if(DirRS485.UART_TX2)
+    ENTX485_I = 0;  // TXD RS485_I программно подключен к выходу TXD RS485
     TxRunRs = 1;		//выставляем флаг признака передачи
     for(delay = 0; delay < 60; delay ++);
     _U3TXIE = 1;
@@ -666,13 +580,11 @@ void __attribute__((interrupt, auto_psv)) _U3RXInterrupt (void)
             i = TxFifoRs.wiRsTx;		
             TxFifoRs.buffRsTx[i++] = TEMP_U3RXREG; //запись в Tx FIFO буфер одного байта//ГЮОХЯЭ Б Tx FIFO АСТЕП НДМНЦН АЮИРЮ
             TxFifoRs.wiRsTx = i % SIZE_BUFFER_TXRS;
-//            _DI();
             TxFifoRs.ctRsTx++;
             if (!TxRunRs) {		//если передача по UART Tx не ведётся, то ..//ЕЯКХ ОЕПЕДЮВЮ ОН UART Tx МЕ БЕД╦РЯЪ, РН ..
                 TxRunRs = 1;    //установка флага - признака передачи //СЯРЮМНБЙЮ ТКЮЦЮ - ОПХГМЮЙЮ ОЕПЕДЮВХ
         //------бЙКЧВЕМХЕ ОЕПЕДЮВХ ОН МЮОПЮБКЕМХЧ RS485_I------------------------
         //------Включение передачи по направлению RS485_I------------------------
-                _RP16R = _RPOUT_U3TX;    // изм для pcb2.2 для TD331S485H-A
                 U3STAbits.UTXEN = 1;
                 ENTX485_I = 0;  // TXD RS485_I ОПНЦПЮЛЛМН ОНДЙКЧВЕМ Й БШУНДС TXD RS485
                                 // TXD RS485_I программно подключен к выходу TXD RS485
@@ -760,7 +672,6 @@ void __attribute__((interrupt, auto_psv)) _U3TXInterrupt (void)
         while(!U3STAbits.TRMT); // ожидаем опустошения буфера передачи
         TxRunRs = 0;		//сбрасываем флаг признака передачи
         ENTX485 = 0;
-        _RP16R = 0;    // изм для pcb2.2 для TD331S485H-A
         ENTX485_I = 1;
         U3STAbits.UTXEN = 0;
     }

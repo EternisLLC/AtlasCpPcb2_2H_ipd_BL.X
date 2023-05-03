@@ -73,16 +73,10 @@ extern "C" {
     void SaveSerialNumberBU(unsigned long tempSerial,UINT16 addr);
     void SaveEvent(UINT8 TypeEvent);
     UINT8 CheckStatusBU201106(UINT8 direct);
-//    void MainMenu0521(void);
-//    void DisplayStatusDirection(void);
-//    void DisplayStatusBU(void);
-//    void DisplayStatusBOS1202(void);
-//    void DisplayControlDirection(void);
     void IndicatorDirection(UINT8 dir);
     void DisplayReadArhiv0525(void);
     void TransmittArhivUSB(void);
     void IndicationControl(void);
-//    void CheckKey1(void);
     void CheckStausPWR(void);
     void SetAutoStatus201029(UINT8 ii);
     void TestKey(void);

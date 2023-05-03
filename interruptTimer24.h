@@ -2,7 +2,7 @@
 
 
 typedef struct {
-    int _10ms  :1;
+    int usb50ms  :1;
     int _100ms :1;     
     int _1s    :1;
     int _1Sec   :1;
@@ -12,6 +12,7 @@ typedef struct {
     int _1min       :1;
     int _50ms       :1;
     int Key_10ms    :1;
+    int _500ms      :1;
 }interval_t;  //флаги интервалов времени
 
 
@@ -20,9 +21,8 @@ extern TimeStruct CurrentTime;
 
 extern interval_t Interval;
 extern UINT8   CounterDelaySec;
-//extern UINT16   CounterDelayMs;
 extern UINT16  CounterDelayRs;
 extern UINT8    CounterNoAnswer[11];
 extern UINT32 Counter1ms;
-
+extern UINT16 CounterWork;
 

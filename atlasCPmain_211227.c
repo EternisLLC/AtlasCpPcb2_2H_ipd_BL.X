@@ -17,20 +17,13 @@
 #include    "driverAt45.h"
 #include    "functionCP.h"
 #include    "DriverMFRC522cp.h" // изм. 30.03.22
-#include    "crc8.h"
 #include    "FunctionRS485_K.h"
 #include    "functionUART24.h"
 
-/*
- * проверка GitHub
- */
-UINT8 DirectControl = 1;
-UINT32 tempSN = 0;
-UINT16 CounterDelayWork = 100;
-static UINT16   CounterJampPage;
+
+
 
 int main(void) {
-    UINT8 ii;
     ProcessorInit();
 // ОЧИСТКА ПАМЯТИ
 //    EraseAt45();
@@ -46,7 +39,9 @@ int main(void) {
     }
     CurrentEventWrite = ReadCurrentPositionAt45();
     NumberOfResponses[0] = 0;
+    UINT8 ii;
     for(ii = 1; ii < 11; ii ++){
+        UINT32 tempSN = 0;
         // считываем СН зарегистрированных БУ из 4...43 ячеек 2047 страницы at45
         tempSN = ReadLongFromAT45(2047,(ii*4));
         if(tempSN == 0xFFFFFFFF){
@@ -65,21 +60,16 @@ int main(void) {
     ModeRs = ReadCharFromAt45(2047,250);   // изм. 13.04.22
     SelectModeRs485(ModeRs);              // изм. 13.04.22
     LCD_EN = 1;
-//    printf("restЪЪЪ"); // жчочлпуомачлльх ъюомъ ТИ
-//    printf("restЪЪЪ"); // гарантированный сброс ЖК
-    
     Interval._1s = 0;
     TempDirectRs = 0;
     TempCommandRs = 0;
     Interval._CheckStatusBU = 1;
     WaitingScreen = 0;
+    ControlFlagCP.NoBurLast = 1;
+    ControlFlagCP.RsBreakLast = 1;
     while(1){
+        static UINT16   CounterJampPage;
         while(CurrentScreen > 9 && CurrentScreen != 15 && CurrentScreen != 255){
-
-//            if(ScreenLast != CurrentScreen){
-//                xprintf("%u->%u dir %u\r",ScreenLast,CurrentScreen,SelectedDirection);
-//                ScreenLast = CurrentScreen;
-//            }
             if(Interval._CheckStatusBU){
                 (void)CheckStatusBU201106(DirectControl);
                 //флаг Interval._CheckStatusBU снимается в функции CheckStatusBU4() 
@@ -128,8 +118,9 @@ int main(void) {
                     TempCommandRs = 0;
                 }
             }
-            if(Interval._1Sec){
+            if(Interval._1Sec/*_500ms_1Sec*/){
                 if(!Interval._CheckStatusBU){
+                    CounterWork = 0;
                     IndicatorDirection(DirectControl);
                     do{
                         DirectControl ++;
@@ -154,9 +145,10 @@ int main(void) {
 //                            LcdFlag.NewData = 1;
                         }
                     }while(!StatusBU[DirectControl].SerialNumber/* && DirectControl != 1*/);
+                    /*отладка*/if(LcdFlag.Debug)xprintf("CounterWork %u\r",CounterWork);
                     Interval._CheckStatusBU = 1;
                 }
-                /*if(CurrentScreen != 13)*/Interval._1Sec = 0;
+                /*if(CurrentScreen != 13)*/Interval._1Sec/*_500ms*/ = 0;
                 Reset_IKZ ();
                                            
             }
@@ -165,7 +157,8 @@ int main(void) {
                 // 30.09.22
                 if(ControlFlagCP.ErrorRip != IN_ERR_RIR){   // 30.09.22
                     ControlFlagCP.ErrorRip = IN_ERR_RIR;
-                    if(CurrentScreen == 10){     
+                    if(CurrentScreen == 10){  
+                        while(TxRunRs || TxRunLcd);
                         if(ControlFlagCP.ErrorRip){
                             printf("page10.t13.pic=56ЪЪЪ");
                         }else{
@@ -190,7 +183,6 @@ int main(void) {
                     LED_START = TempLedStart;
                     LED_AUTO = TempLedAuto;
                 }
-//            printf("page %uЪЪЪ",(UINT8)param[0]); // передаем команду перехода на указанную станицу 
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
                 printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1b\r",LcdBufferData);
@@ -271,14 +263,6 @@ int main(void) {
         }
         TerminalLcd();
 // изм. 01.04.22       
-//        if(Interval._100ms){
-////            xprintf("Timer  %u\r",Timer++);
-//            if(RsMode !=(UINT8)ControlFlagCP.CurrentModeRs){
-//                RsMode =(UINT8)ControlFlagCP.CurrentModeRs;
-//                xprintf("ModeRs  %u\r",RsMode);
-//            }
-//            Interval._100ms = 0;
-//        }
         switch(CurrentScreen){
             case 0:
                 if(LcdFlag.NewPage){
@@ -292,7 +276,6 @@ int main(void) {
                 }
                 if(Interval._1s){
                     if(!SerialNumberKid[NumberKID].SerialKid){ // изм. 20.06.22
-//                        printf("page4.b0.txt=\"ЗАПИСАТЬ\"ЪЪЪ");
                         SerialNumberKid[0].SerialKid = 0;
                         FlagMFRC522._ReadCart = 1;
                         FlagMFRC522._newCart = 0;
@@ -301,10 +284,12 @@ int main(void) {
                             ReadSerialNumberKID(SerialNumberKid[0].BufferKid);
                             counterReadCart --;
                         }
+                        while(TxRunRs || TxRunLcd);
                         if(SerialNumberKid[0].SerialKid){
                             printf("page4.t4.txt=\"%lu\"ЪЪЪ", SerialNumberKid[0].SerialKid);
                         }else{
                             printf("page4.t4.txt=\"0\"ЪЪЪ");
+                            while(TxRunRs || TxRunLcd);
                             printf("page4.t14.txt=\"\"ЪЪЪ");
                         }
                     }else{
@@ -338,9 +323,6 @@ int main(void) {
                 }
                 break;
         }
-//=============        
-// изм. 01.04.22        DisplayReadArhiv0525(); 
-// изм. 01.04.22        TransmittArhivUSB();
     }
     return 0;
 }

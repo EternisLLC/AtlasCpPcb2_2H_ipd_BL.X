@@ -6,16 +6,6 @@
  */
 #ifndef DRIVER_MFRC522_H
 #define DRIVER_MFRC522_H
-
-
-//#include    "init.h"
-//#include    "Spi24.h"
-//#include    "AlwaysBur.h"
-//#include    "Always.h"
-//#include    "FunctionSpi18.h"
-//#include    "InitPins18.h"
-//#include    "mcc.h"
-
     
 #define	CS_RC522             _LATD8  // RG8 выход формирования инверсного сигнала CS_RC522
 #define	TRIS_CS_RC522        _TRISD8
@@ -140,13 +130,6 @@ extern Flag522_t FlagMFRC522;
 extern serialKid_t SerialNumberKid[11];
 extern unsigned char counterReadCart;
 //-----------------------------------------------
-
-
-//unsigned char MFRC522_ReadByte(unsigned char Address);
 void MFRC522_Init(void); 
-//void MFRC522_SoftPowerDown(void);
-//void MFRC522_SoftPowerUp(void);
-//void TerminalMFRC522(void);
-//void SetSpi2ForMFR522(void);
 void ReadSerialNumberKID(unsigned char* temp);
 #endif  // DRIVER_MFRC522_H

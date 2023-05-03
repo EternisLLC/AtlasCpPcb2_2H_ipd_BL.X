@@ -15,5 +15,5 @@ typedef struct COMMANDTYP{
 
 extern UINT8   TempDirectRs;
 extern UINT8   TempCommandRs;
-extern char   LcdBufferData[64];
+extern char   LcdBufferData[128];
 

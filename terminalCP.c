@@ -9,7 +9,6 @@
 #include    "FunctionRS485_K.h"
 #include    "terminal.h"
 #include    "InterruptTimer24.h"
-#include    "crc8.h"
 #include    "DriverAt45.h"
 #include    "functionCP.h"
 #include "DriverMFRC522cp.h"
@@ -176,10 +175,11 @@ int xatoi (			/* 0:Failed, 1:Successful */
 UINT8   TempDirectRs = 0;
 UINT8   TempCommandRs = 0;
 UINT8   TempNumberKid = 0;
-char   LcdBufferData[64];
+char   LcdBufferData[128];
 static UINT16 COUNTER_COMMAND;
 static UINT8  redy; // изм. 01.04.22
 // изм. 29.03.22 #include    "iButton.h"
+//inline 
 void TerminalLcd (void){
 unsigned int CounterCommands=0;                                                 //ЯВ╦РВХЙ ЯОХЯЙЮ ЙНЛЮМД
 unsigned int CounterParam=0;                                                    //ЯВ╦РВХЙ ОЮПЮЛЕРПНБ
@@ -194,17 +194,15 @@ if (!xgetsU4(LineLcd, sizeof LineLcd)){
 ptr = LineLcd;                                                                     //ОПХЯБЮХБЮЕЛ СЙЮГЮРЕКЭ МЮ ОНКСВЕММСЧ ЯРПНЙС БПЕЛЕММНИ ОЕПЕЛЕММНИ
 //------------------ ПЮЯОЮЙНБЙЮ ОПХМЪРНИ ЯРПНЙХ --------------------------------
 while (CounterCommands<MaxCommands){                                            //ОЕПЕАХПЮЕЛ ЯОХЯНЙ ЙНЛЛЮМД
-   // printf("оЕПЕАНП ЙНЛЮМД:%d\n",CounterCommands);
     if (!strncmp(ptr,CommandsU4[CounterCommands].Command,strlen(CommandsU4[CounterCommands].Command))){     //ЕЯКХ ЙНЛЮМДЮ ЕЯРЭ Б ЯОХЯЙЕ,РН
         ptr=strchr(ptr,' ');                                                    //ЯЛЕЫЮЕЛ ДН ОЕПБНЦН ОПНАЕКЮ
         while(xatoi(&ptr,&param[CounterParam])){                                //ОЕПЕАХПЮЕЛ ОЮПЮЛЕРПШ ЙНЛЮМДШ
             CounterParam++;                                                     //СБЕКХВХБЮЕЛ ЯВ╦РВХЙЮ ОЮПЮЛЕРПНБ
-           // printf("оЕПЕАНП ОЮПЮЛЕРПНБ:%d\n",CounterParam);
         }                              
         break;
     }
     CounterCommands++;                                                          //СБЕКХВХБЮЕЛ ЯВ╦РВХЙ ЯОХЯЙЮ ЙНЛЮМД
-}//ЙНМЙЖ while (i<MaxCommands)
+}
 NameCommand = CommandsU4[CounterCommands].Name;                                     //ОПХЯБНЕМХЕ ХЛЕМХ МЮИДЕМНИ ЙНЛЮМДШ
 //============
 COUNTER_COMMAND ++;
@@ -248,36 +246,15 @@ COUNTER_COMMAND ++;
 //--- еЯКХ ЙНЛЮМДЮ ЕЯРЭ Б ЯОХЯЙЕ, МН ДКЪ МЕ╦ ЕЫ╦ МЕ МЮОХЯЮМ НАПЮАНРВХЙ ---------
 //------------------------------------------------------------------------------       
         default :
-//            xprintf("LineLcd -> ");
-//            xprintf("%s",LineLcd);
-////            for(index = 0; index < 128; index ++){
-////                xprintf("%c",LineLcd[index]);
-////            }
-//            xprintf("\r");
-//            xprintf("RxFifoU4 -> ");
-//            for(index = 0; index < 128; index ++){
-//                xprintf("%c",RxFifoU4.buff[index]);
-//            }
-//            xprintf("\r");
-//            xprintf("wi - %u\r",RxFifoU4.wi);
-//            xprintf("ri - %u\r",RxFifoU4.ri);
-//            xprintf("ct - %u\r",RxFifoU4.ct);
-//            xprintf("TxFifoU4 -> ");
-//            for(index = 0; index < 128; index ++){
-//                xprintf("%c",TxFifoU4.buff[index]);
-//            }
-//            xprintf("\r");
-//            xprintf("wi - %u\r",TxFifoU4.wi);
-//            xprintf("ri - %u\r",TxFifoU4.ri);
-//            xprintf("ct - %u\r",TxFifoU4.ct);
-//            Nop();
+
             break;
         case    PAGE_CURRENT :
             if(!param[0] && CurrentScreen == 255){
                 SaveEvent(100);
             }
             if(!param[0]){ // переход на 0 страницу
-                printf("t0.txt=\"ver%02lu.%02lu.%02lu\"ЪЪЪ",VerD,VerM,VerY);
+                while(TxRunRs || TxRunLcd);
+                printf("page0.t0.txt=\"ver%u.%u.%u\"ЪЪЪ",VerY,VerM,VerD);
             }
 //----------------
             if(!CurrentScreen && param[0] == 10){
@@ -302,6 +279,7 @@ COUNTER_COMMAND ++;
                         Nop();
                         ModeRs = ReadCharFromAt45(2047,250); // 16.09.22
                         SelectModeRs485(ModeRs);
+                        while(TxRunRs || TxRunLcd);
                         switch(ControlFlagCP.CurrentModeRs){
                             case 0:
                                 break;
@@ -316,26 +294,30 @@ COUNTER_COMMAND ++;
                     case 7:
                         PrintDirectionNumber(CurrentScreen);
                         StatusBU[SelectedDirection].SerialNumber = ReadLongFromAT45(2047,(SelectedDirection * 4));
+                        while(TxRunRs || TxRunLcd);
                         if(StatusBU[SelectedDirection].SerialNumber==0x0){
                             printf("page7.show.txt=\"0\"ЪЪЪ");
+                            while(TxRunRs || TxRunLcd);
                             printf("page7.b10.txt=\"ДОБАВИТЬ\"ЪЪЪ");
                         }else{
                             printf("page7.show.txt=\"%lu\"ЪЪЪ", StatusBU[SelectedDirection].SerialNumber);
+                            while(TxRunRs || TxRunLcd);
                             printf("page7.b10.txt=\"УДАЛИТЬ\"ЪЪЪ");
                         }
                         break;
                     case 10:
-                        if(!redy){
-                            WaitingScreen = 0;              // переменной WaitingScreen присваеваем 0 номер страницы на которую выполняется переход
-                            LcdFlag.WaitNewScreen1 = 1;      // выставляем флаг нового перехода
-                            sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
-                            LcdFlag.NewPage = 1;
-                            CurrentScreen = 0;
-                            printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1a\r",LcdBufferData);
-                            /*отладка*/if(LcdFlag.Debug)xprintf("Device no redy\r");
-                        }else{
-                            /*отладка*/if(LcdFlag.Debug)xprintf("Device redy\r");
-                        }
+//                        if(!redy){
+//                            WaitingScreen = 0;              // переменной WaitingScreen присваеваем 0 номер страницы на которую выполняется переход
+//                            LcdFlag.WaitNewScreen1 = 1;      // выставляем флаг нового перехода
+//                            while(TxRunRs || TxRunLcd);
+//                            sprintf(LcdBufferData,"page %uЪЪЪ",WaitingScreen);
+//                            LcdFlag.NewPage = 1;
+//                            CurrentScreen = 0;
+//                            printf("%s",LcdBufferData); /*отладка*/if(LcdFlag.Debug)xprintf("%s 1a\r",LcdBufferData);
+//                            /*отладка*/if(LcdFlag.Debug)xprintf("Device no redy\r");
+//                        }else{
+//                            /*отладка*/if(LcdFlag.Debug)xprintf("Device redy\r");
+//                        }
                         break;
                     case 11:
                         CounterCheckBU = 0;
@@ -400,19 +382,52 @@ COUNTER_COMMAND ++;
                     CounterCheckBU = 0;
                     Interval._1min = 1;
                 }
-                if(WaitingScreen == 111){
-                    if(ClassAlgoritm[SelectedDirection] < 11){
-                        WaitingScreen = 11;
-                    }else{
-                        WaitingScreen = 16;
-                    }
+                switch(WaitingScreen){
+                    default:
+                        break;
+                    case 10:
+                        if(!CurrentScreen){
+                            redy = 0;
+                            // проверяем еа наличии зарегистрированных БУ
+                            for(index = 1; (index < 11 && !redy); index ++){
+                                if(StatusBU[index].SerialNumber){
+                                   redy = 1; 
+                                }
+                            }
+                            if(!redy){
+                                WaitingScreen = 255;
+                                LcdFlag.WaitNewScreen1 = 0;      // снимаем флаг нового перехода
+                            }
+                            
+                        }
+                        break;
+                    case 19:
+                        if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
+                        break;
+                    case 20:
+                        DeviceNumber = (UINT16) param[2];
+                        break;
+                    case 111:
+                        if(ClassAlgoritm[SelectedDirection] < 11){
+                            WaitingScreen = 11;
+                        }else{
+                            WaitingScreen = 16;
+                        }
+                        break;
                 }
-                if(WaitingScreen == 19){
-                    if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
-                }
-                if(WaitingScreen == 20){
-                    DeviceNumber = (UINT16) param[2];
-                }
+//                if(WaitingScreen == 111){
+//                    if(ClassAlgoritm[SelectedDirection] < 11){
+//                        WaitingScreen = 11;
+//                    }else{
+//                        WaitingScreen = 16;
+//                    }
+//                }
+//                if(WaitingScreen == 19){
+//                    if(CurrentScreen !=20)GroupNumber = (UINT8) param[2];
+//                }
+//                if(WaitingScreen == 20){
+//                    DeviceNumber = (UINT16) param[2];
+//                }
                 if(CurrentScreen == 15){
                     SOUND = TempSound;
                     LED_ERROR = TempLedError;
@@ -429,6 +444,7 @@ COUNTER_COMMAND ++;
                 AccessPassword = param[0];
                 SaveAccessPassword(AccessPassword);
                 SaveEvent(105); // событие изменение пароля
+                while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page6.show.bco=%uЪЪЪ", GREEN);
                 printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                 
@@ -451,10 +467,12 @@ COUNTER_COMMAND ++;
                 CurrentTime.Minute = (unsigned char)param[4];
                 CurrentTime.Second = (unsigned char)param[5];
                 SaveEvent(101);
-                printf("t20.pco=%uЪЪЪ",GREEN);
+                while(TxRunRs || TxRunLcd);
+                printf("page3.t20.pco=%uЪЪЪ",GREEN);
                 CounterDelaySec = 1;
                 while (CounterDelaySec);
-                printf("t20.pco=%uЪЪЪ", BLACK);
+                while(TxRunRs || TxRunLcd);
+                printf("page3.t20.pco=%uЪЪЪ", BLACK);
             }
             break;
         case NEXT_DIR:
@@ -465,11 +483,14 @@ COUNTER_COMMAND ++;
             
             StatusBU[SelectedDirection].SerialNumber = ReadLongFromAT45(2047,(SelectedDirection * 4));
             PrintDirectionNumber(CurrentScreen);
+            while(TxRunRs || TxRunLcd);
             if(StatusBU[SelectedDirection].SerialNumber==0x0){
                 printf("page7.show.txt=\"0\"ЪЪЪ");
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"ДОБАВИТЬ\"ЪЪЪ");
             }else{
                 printf("page7.show.txt=\"%lu\"ЪЪЪ", StatusBU[SelectedDirection].SerialNumber);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"УДАЛИТЬ\"ЪЪЪ");
             }
             break;
@@ -477,9 +498,11 @@ COUNTER_COMMAND ++;
             dir = (unsigned char)param[0];
             if (StatusBU[dir].SerialNumber) {
                 // попытка записи в занятую ячейку
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uЪЪЪ", YELOW);
                 CounterDelaySec = 1;
                 while (CounterDelaySec);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uЪЪЪ", WHITE);
                 return;
             }
@@ -488,24 +511,31 @@ COUNTER_COMMAND ++;
                 for (ii = 1; ii < 11; ii++) {
                     // проверка на совпадение серийных номеров
                     if (param[1] == StatusBU[ii].SerialNumber) {
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.bco=%uЪЪЪ", YELOW);
                         CounterDelaySec = 1;
                         while (CounterDelaySec);
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.txt=\"%lu\"ЪЪЪ", StatusBU[dir].SerialNumber);
+                        while(TxRunRs || TxRunLcd);
                         printf("page7.show.bco=%uЪЪЪ", WHITE);
                         LcdFlag.NewSn = 0;
                         return;
                     }
                 }
                 // запись нового серийного номера
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uЪЪЪ", GREEN);
                 CounterDelaySec = 1;
                 StatusBU[dir].SerialNumber = param[1];
                 SaveSerialNumberBU(StatusBU[dir].SerialNumber, (dir * 4));
                 while (CounterDelaySec);
                 SaveEvent(102);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.txt=\"%lu\"ЪЪЪ", StatusBU[dir].SerialNumber);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.show.bco=%uЪЪЪ", WHITE);
+                while(TxRunRs || TxRunLcd);
                 printf("page7.b10.txt=\"УДАЛИТЬ\"ЪЪЪ");
             }
             Nop();
@@ -513,6 +543,7 @@ COUNTER_COMMAND ++;
         case    DEL_BU:
             // удаление записанного серийного номера
             dir = (unsigned char)param[0];
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.bco=%uЪЪЪ", GREEN);
             CounterDelaySec = 2;
             TempSerialNumberBUR = StatusBU[dir].SerialNumber;
@@ -520,17 +551,24 @@ COUNTER_COMMAND ++;
             SaveEvent(103);
             SaveSerialNumberBU(StatusBU[dir].SerialNumber, (dir * 4));
             while (CounterDelaySec);
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.txt=\"%lu\"ЪЪЪ", StatusBU[dir].SerialNumber);
+            while(TxRunRs || TxRunLcd);
             printf("page7.show.bco=%uЪЪЪ", WHITE);
+            while(TxRunRs || TxRunLcd);
             printf("page7.b10.txt=\"ДОБАВИТЬ\"ЪЪЪ");
             Nop();
             break;
         case    KID_READ:   // изм. 01.04.22
             NumberKID = (UINT8)param[0];
             ReadRegisteredKid(NumberKID); // чтение сохраненного ключа в переменные
+            while(TxRunRs || TxRunLcd);
             printf("page4.t4.txt=\"%lu\"ЪЪЪ", SerialNumberKid[NumberKID].SerialKid); // изм. 20.06.22
+            while(TxRunRs || TxRunLcd);
             printf("page4.t14.txt=\"\"ЪЪЪ");
+            while(TxRunRs || TxRunLcd);
             printf("page4.t13.pic=27ЪЪЪ");
+            while(TxRunRs || TxRunLcd);
             if(SerialNumberKid[NumberKID].SerialKid){
                 printf("page4.b0.txt=\"УДАЛИТЬ\"ЪЪЪ");
             }else{
@@ -552,31 +590,42 @@ COUNTER_COMMAND ++;
                     SerialNumberKid[0].SerialKid == SerialNumberKid[8].SerialKid ||
                     SerialNumberKid[0].SerialKid == SerialNumberKid[9].SerialKid ||
                     SerialNumberKid[0].SerialKid == SerialNumberKid[10].SerialKid){
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.t14.txt=\"уже есть\"ЪЪЪ");
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.t13.pic=26ЪЪЪ");
                 }else{
                     SavingRegisteredKid(NumberKID); // сохраняем в памяти новый ключ
                     ReadRegisteredKid(NumberKID); // контрольное чтение сохраненного ключа в переменные
                     if(SerialNumberKid[NumberKID].SerialKid == SerialNumberKid[0].SerialKid){
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t4.txt=\"%lu\"ЪЪЪ", SerialNumberKid[NumberKID].SerialKid); // изм. 20.06.22
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t14.txt=\"записан\"ЪЪЪ");
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t13.pic=27ЪЪЪ");
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.b0.txt=\"УДАЛИТЬ\"ЪЪЪ");
                         SaveEvent(106);
                     }else{
+                        while(TxRunRs || TxRunLcd);
                         printf("page4.t14.txt=\"не записан\"ЪЪЪ");
+                        while(TxRunRs || TxRunLcd);
                         printf("pfge4.t13.pic=26ЪЪЪ");
                     }
                 }
                 FlagMFRC522._newCart = 0;
             }else{
+                while(TxRunRs || TxRunLcd);
                 if(!SerialNumberKid[NumberKID].SerialKid){
                     printf("page4.t14.txt=\"нет ключа\"ЪЪЪ");
+                    while(TxRunRs || TxRunLcd);
                     printf("t13.pic=26ЪЪЪ");
                 }else{
                     SerialNumberKid[NumberKID].SerialKid = 0;
                     SavingRegisteredKid(NumberKID); // сохраняем в памяти новый ключ
                     printf("page4.t14.txt=\"ключ удален\"ЪЪЪ");
+                    while(TxRunRs || TxRunLcd);
                     printf("page4.b0.txt=\"ЗАПИСАТЬ\"ЪЪЪ");
                 }
             }
@@ -607,7 +656,10 @@ COUNTER_COMMAND ++;
             TempNumberKid = SearchNumberKid(); // изм. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
             TempDirectRs = SelectedDirection; // сохраняем номер направления
-            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+//            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ",CurrentScreen);
+            printf("%s",LcdBufferData);
 // изм. 02.09.22
             switch(StatusBU[SelectedDirection].StatusAuto.StatusAutoByte & 0b11000000){
                 case AUTO:
@@ -634,7 +686,10 @@ COUNTER_COMMAND ++;
 // изм. 29.03.22             TempNumberKid = SearchIbutton();
             TempNumberKid = SearchNumberKid(); // изм. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
-            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+//            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ",CurrentScreen);
+            printf("%s",LcdBufferData);
             TempDirectRs = SelectedDirection; // сохраняем номер направления
             TempCommandRs = 6;  // команда сброс
             break;
@@ -643,7 +698,10 @@ COUNTER_COMMAND ++;
 // изм. 29.03.22             TempNumberKid = SearchIbutton();
             TempNumberKid = SearchNumberKid(); // изм. 01.04.22
             if(TempNumberKid == 0 || TempNumberKid > 10) break;
-            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+//            printf("t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ");
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t0.txt=\"ОЖИДАНИЕ РЕАКЦИИ\"ЪЪЪ",CurrentScreen);
+            printf("%s",LcdBufferData);
             TempDirectRs = SelectedDirection; // сохраняем номер направления
             TempCommandRs = 7;  // команда старт по направлению
             break;
@@ -679,11 +737,13 @@ COUNTER_COMMAND ++;
             if(ControlFlagCP.CurrentModeRs == 1){
                 SelectModeRs485(2);
                 if(ControlFlagCP.CurrentModeRs == 2){
+                    while(TxRunRs || TxRunLcd);
                     printf("page5.b1.pic=91ЪЪЪ");
                 }
             }else{
                 SelectModeRs485(1);
                 if(ControlFlagCP.CurrentModeRs == 1){
+                    while(TxRunRs || TxRunLcd);
                     printf("page5.b1.pic=92ЪЪЪ");
                 }
             }
@@ -882,6 +942,7 @@ unsigned int    tempLine;
                     }
                     StatusBU[0].FlagErrRoom.ErrByte = (UINT8)paramRs[10];
                     if(StatusBU[0].FlagErrRoom.ErrByte != StatusBU[DirectControl].FlagErrRoom.ErrByte){
+                        if(LcdFlag.Debug)xprintf("ErrByteN 0x%02X, ErrByteL 0x%02X\r",StatusBU[0].FlagErrRoom.ErrByte,StatusBU[DirectControl].FlagErrRoom.ErrByte);
                         NewEventLcdFlag.NewStaus = 1;
                     }
 // изм. 25.03.22                    
@@ -893,7 +954,8 @@ unsigned int    tempLine;
                             TempCommandRs = 6;  // команда сброс
                             FildFlagsPcb2[0].Reset = 0;
                         }
-                        if(FildFlagsPcb2[0].ByteFlagRoom_Pcb2 != FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2){
+                        if((FildFlagsPcb2[0].ByteFlagRoom_Pcb2 & 0x07) != (FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2 & 0x07)){
+                            if(LcdFlag.Debug)xprintf("ByteFlagRoom_Pcb2N 0x%02X, ByteFlagRoom_Pcb2L 0x%02X\r",FildFlagsPcb2[0].ByteFlagRoom_Pcb2,FildFlagsPcb2[DirectControl].ByteFlagRoom_Pcb2);
                             NewEventLcdFlag.NewStaus = 1;
                         }
                     }

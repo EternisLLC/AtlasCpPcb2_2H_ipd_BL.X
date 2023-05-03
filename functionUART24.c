@@ -17,11 +17,6 @@
 
 int TxRunLcd;		// флаг - признак передачи 
 
-//static volatile struct {
-//	int		ri, wi, ct;			/* индекс чтения, индекс записи, счётчик данных */
-//	unsigned char	buff[BUFFER_SIZE];	/* FIFO буфер */
-//} TxFifoU4, RxFifoU4;
-
 FifoU4 TxFifoU4, RxFifoU4;
 
 //---- перенаправление стандартного потока ввода-вывода для printf и др.-----------
@@ -51,9 +46,6 @@ void __attribute__((interrupt, auto_psv)) _U4RXInterrupt (void)
     }
 	d = (unsigned char)U4RXREG;			//получение байта данных
     _U4RXIF = 0;                        //очистка флага прерывания RX
-//    if(d == 0xf8){
-//        return;
-//    }
     if(d == '\n'){
         return;
     }
@@ -135,8 +127,6 @@ void InitUart4 (unsigned long bps)
 	U4BRG = FCY / 4 / bps - 1;
     _RP20R = _RPOUT_U4TX;        //подключение модуля TX1 к ножке RP20
     _U4RXR = 25;                //подключение модуля RX1 к ножке PR25
-//    RPINR27bits.U4RXR = 0x0019;    //RD4->UART4:U4RX
-//    RPOR10bits.RP20R = 0x001E;    //RD5->UART4:U4TX
     U4MODEbits.BRGH = 1;
 	U4MODEbits.UARTEN = 1;
 	U4STAbits.UTXEN = 1;

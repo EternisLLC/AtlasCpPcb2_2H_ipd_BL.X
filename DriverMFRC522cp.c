@@ -32,8 +32,7 @@ unsigned char MFRC522_ReadByte(unsigned char Address)
     CS_RC522 = 1;
 	return Temp;
 }
-//
-//
+
 void MFRC522_Clear_Bit( char addr, unsigned char mask )
 {     unsigned int  tmp =0x00;
       tmp = MFRC522_ReadByte( addr ) ;
@@ -417,10 +416,8 @@ void ReadSerialNumberKID(unsigned char * tempSn){
     }else{ //серийный номер не прочитан
         ErrorRegRC522 = MFRC522_ReadByte(ErrorReg);
         if(ErrorRegRC522){
-//            printf("RC522_reinit\r");
             MFRC522_Init();
-
-        }
+      }
     }
     if(!FlagMFRC522._ReadCart)MFRC522_SoftPowerDown(); // Выключение модуля RC522(карта прочитана)
     ChangModeSpi(2);
