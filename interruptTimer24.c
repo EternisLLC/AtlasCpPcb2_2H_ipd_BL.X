@@ -31,10 +31,11 @@ void __attribute__ ((interrupt,no_auto_psv)) _T3Interrupt (void)
 //        Interval._50ms = 1;
 //    }
     Interval.Key_10ms = 1;
-    if(CounterDelayRs){ // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
-        CounterDelayRs --;
-        return;
-    }
+    Interval.Rs_10ms = 1;
+//    if(CounterDelayRs){ // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
+//        CounterDelayRs --;
+//        return;
+//    }
     if(CounterCheckStatusBU){
         CounterCheckStatusBU --;
         if(!CounterCheckStatusBU){

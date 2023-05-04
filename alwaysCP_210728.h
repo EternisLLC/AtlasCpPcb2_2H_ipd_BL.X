@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 //РАСПАКРВКА ВЕРСИИ ПРОГРАММЫ
-    #define VERSION 10007
+    #define VERSION 20000
     #define VerY    (VERSION/10000)
     #define VerM    ((VERSION/100)%100)
     #define VerD    (VERSION%100)
@@ -219,7 +219,7 @@ extern "C" {
     extern UINT8            ConnectBUR[12]; // массив показывающий наличие связи с БУ
     extern UINT8            WaitData; // флаг ожидания данных по RS
     extern UINT8            CounterDirect;
-    extern UINT32           MySerialNumber;
+//    extern UINT32           MySerialNumber;
     extern UINT8            CounterCheckBU; // подробный пакет запрашивается с периодичностью определяемой этой переменной
     extern UINT16           IndexBos;// индекс последовательного перебора с.н. БОС
     extern FildControlBits   ControlFlagCP;

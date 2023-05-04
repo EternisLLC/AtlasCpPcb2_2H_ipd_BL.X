@@ -18,6 +18,7 @@
         <itemPath>terminal.h</itemPath>
       </logicalFolder>
       <itemPath>ezbl_integration/ezbl.h</itemPath>
+      <itemPath>tempFile.txt</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

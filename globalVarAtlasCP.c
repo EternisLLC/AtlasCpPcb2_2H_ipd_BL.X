@@ -12,7 +12,7 @@ LcdFlagBits     LcdFlag;    // структура определяющая смену экранов и данных на 
 UINT16          CommandDebug = 0;
 UINT32          AccessPassword   = 1234;
 UINT32          OldAccessPassword;
-UINT32          MySerialNumber;
+//UINT32          MySerialNumber;
 UnionStatusBU       StatusBU[11]; // структура описывающая состояние БУ
 UINT8           ClassAlgoritm[12]= {0,0,0,0,0,0,0,0,0,0,0,0};// вводим пераметр класс ИП или алгоритм СПС
 UINT8           ConnectBUR[12] = {0,0,0,0,0,0,0,0,0,0,0,0}; // массив показывающий наличие связи с БУ

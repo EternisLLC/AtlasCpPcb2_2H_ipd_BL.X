@@ -368,7 +368,13 @@ UINT8   CounterNoConnect[11];
 UINT8   TempDir;
 UINT8   CheckStatusBU201106(UINT8 direct){
     if(CounterDelayRs){
-        return 0; // если мы ждем какие либо данные выходим
+        if(Interval.Rs_10ms){
+            Interval.Rs_10ms = 0;
+            CounterDelayRs --;
+        }
+        if(CounterDelayRs) {
+            return 0; // если мы еще ждем какие либо данные выходим
+        }
     }
     if(StatusBU[direct].SerialNumber){ // если БУ зарегистрирован
         if(ConnectBUR[direct]){ // если с БУ установлена связь
@@ -391,10 +397,8 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                         StageCheckBU ++;
                         break;
                     case 1:
-                        TerminalRs();   // ожидаем ответа 1000 мс
-                        if(!CounterDelayRs) {
-                            StageCheckBU ++;
-                        }
+//                        TerminalRs();   // ожидаем ответа 1000 мс
+                        StageCheckBU ++;
                         break;
                     case 2:
                         if(WaitData){
@@ -448,9 +452,17 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                         break;
                     case 1:
                            // ожидаем ответа 100 мс
-                        if(CounterDelayRs == 0) {
-                            StageCheckBU ++;
-                        }
+                        StageCheckBU ++;
+//                        if(CounterDelayRs == 0) {
+//                            StageCheckBU ++;
+//                        }
+//                        if(Interval.Rs_10ms){
+//                            Interval.Rs_10ms = 0;
+//                            CounterDelayRs --;
+//                            if(!CounterDelayRs) {
+//                                StageCheckBU ++;
+//                            }
+//                        }
                         break;
                     case 2:
                          /* флаг установленной связи приравниваем флагу 
@@ -507,10 +519,11 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                     StageCheckBU ++;
                     break;
                 case 1:
+                    StageCheckBU ++;
                        // ожидаем ответа 1000 мс
-                    if(CounterDelayRs == 0) {
-                        StageCheckBU ++;
-                    }
+//                    if(CounterDelayRs == 0) {
+//                        StageCheckBU ++;
+//                    }
                     break;
                 case 2:
                      /* флаг установленной связи приравниваем флагу 

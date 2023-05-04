@@ -13,6 +13,7 @@ typedef struct {
     int _50ms       :1;
     int Key_10ms    :1;
     int _500ms      :1;
+    int Rs_10ms       :1;
 }interval_t;  //флаги интервалов времени
 
 
