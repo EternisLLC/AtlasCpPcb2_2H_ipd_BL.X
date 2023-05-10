@@ -72,8 +72,8 @@ int main(void) {
             //флаг Interval._CheckStatusBU снимается в функции CheckStatusBU4() 
             //после опроса одного зарегистрированного БУ
         }else{
-//            if(Interval._500ms){
-//                Interval._500ms = 0;
+            if(Interval._250ms){
+                Interval._250ms = 0;
                 CounterWork = 0;
                 do{
                     DirectControl ++;
@@ -100,9 +100,9 @@ int main(void) {
                 }while(!StatusBU[DirectControl].SerialNumber/* && DirectControl != 1*/);
                 /*отладка*/if(LcdFlag.Debug)xprintf("CounterWork %u\r",CounterWork);
                 Interval._CheckStatusBU = 1;
-//            }
+            }
         }
-        TerminalRs ();
+        TerminalRs();
     }
     return 0;
 }

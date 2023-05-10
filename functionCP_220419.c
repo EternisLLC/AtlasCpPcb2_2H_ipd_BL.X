@@ -392,7 +392,7 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                         TransmittRsPacket();
                         TempDirectRs = direct; // 30/09/22сохраняем номер направления
 //ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss                        
-                        CounterDelayRs = 50; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
+                        CounterDelayRs = 30; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
                         WaitData = 0;   // сбрасывем флаг ответа
                         StageCheckBU ++;
                         break;
@@ -439,7 +439,7 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                         TransmittRsPacket();
                         TempDirectRs = direct; // 30/09/22сохраняем номер направления
 //ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss                        
-                        CounterDelayRs = 50; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
+                        CounterDelayRs = 30; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
                         WaitData = 0;   // сбрасывем флаг ответа
                         CounterErrBos = 0;
                         CounterAlarmBos = 0;
@@ -489,7 +489,7 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                         break;
                     case 3:
                         TempDir = direct;
-                        TerminalRs();   // ожидаем информации о БОС
+//                        TerminalRs();   // ожидаем информации о БОС
                         if(!CounterDelayRs ) {  // время ожидания закончилось
                             ConnectBUR[direct] = 1;
                             StageCheckBU = 0;
@@ -514,7 +514,7 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                     TransmittRsPacket();
 //sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
                     while(ENTX485 || !ENTX485_I);
-                    CounterDelayRs = 50; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
+                    CounterDelayRs = 30; // изм. 30.01.20 CounterDelayRs перенесн из 1 мс таймера в 10мс
                     WaitData = 0;   // сбрасывем флаг ответа
                     StageCheckBU ++;
                     break;
@@ -547,7 +547,7 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                     break;
                 case 3:
                     TempDir = direct;
-                    TerminalRs();   // ожидаем информации о БОС
+//                    TerminalRs();   // ожидаем информации о БОС
                     if(!CounterDelayRs ) {  // время ожидания закончилось
                         ConnectBUR[direct] = 1;
                         CounterNoConnect[direct] = MaxNumberRequests; // изм. 06.04.22;

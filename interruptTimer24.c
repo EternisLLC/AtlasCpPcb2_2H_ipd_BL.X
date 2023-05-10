@@ -26,16 +26,8 @@ void __attribute__ ((interrupt,no_auto_psv)) _T3Interrupt (void)
         Interval._50ms = 1;
         Interval.usb50ms = 1;
     }
-//    if(Counter10ms > 4){
-//        Counter10ms = 0;
-//        Interval._50ms = 1;
-//    }
     Interval.Key_10ms = 1;
     Interval.Rs_10ms = 1;
-//    if(CounterDelayRs){ // ÉÚÍ. 30.01.20 CounterDelayRs ĞÅÒÅÎÅÓÎ ÉÚ 1 ÍÓ ÔÁÊÍÅÒÁ × 10ÍÓ
-//        CounterDelayRs --;
-//        return;
-//    }
     if(CounterCheckStatusBU){
         CounterCheckStatusBU --;
         if(!CounterCheckStatusBU){
@@ -75,16 +67,21 @@ void __attribute__ ((interrupt,no_auto_psv)) _T2Interrupt (void)
             }
         }
     }
-    if(!(Counter100ms%5)){
-        Interval._500ms = 1;
-    }
     Interval._100ms = 1;
     Interval._SoundCtrl = 1;
     _T2IF = 0;								//ñáğîñ âåêòîğà ïğåğûâàíèÿ
 } // T3 Interrupt
 UINT16 CounterWork;
+static UINT16 IntervalCounter;
 void __attribute__ ((interrupt,no_auto_psv)) _T4Interrupt (void)
 {
+    IntervalCounter ++;
+    if(!(IntervalCounter % 3000)){
+        IntervalCounter = 0;
+    }
+    if(!(IntervalCounter % 250)){
+        Interval._250ms = 1;
+    }
     CounterWork ++;
     if(CounterDelayMs)CounterDelayMs --;
     _T4IF = 0;								
