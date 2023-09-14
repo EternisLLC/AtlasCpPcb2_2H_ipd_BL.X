@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 //РАСПАКРВКА ВЕРСИИ ПРОГРАММЫ
-    #define VERSION 10007
+    #define VERSION 10008
     #define VerY    (VERSION/10000)
     #define VerM    ((VERSION/100)%100)
     #define VerD    (VERSION%100)
@@ -176,6 +176,19 @@ extern "C" {
         unsigned char AlarmByte;//новое интегральное значение обстановки и этапа пуска
         signed int    TemperaturaSensor[2];
     }UnionBosStatus;
+    
+    typedef union {
+        struct{
+            unsigned char ReservPwrOn   :1; // состояние резервного источника питания вкл/выкл
+            unsigned char StausReservPwr:1; // состояние резервного источника питания 0-норма, 1- низкий
+            unsigned char StatusMainPwr :1; // состояние основного источника питания 0-норма, 1- низкий
+            unsigned char SmokeCell     :1; // состояние дымовой камеры
+            unsigned char StatusTamper  :1; // состояние датчика основания 0-норма, 1- снят 
+            unsigned char reserv        :3;
+        };
+        unsigned char StatusByte;     // новое интегральное значение состояния прибора
+    }UnionIpdStatus;
+    
     typedef union{
         struct{
             UINT8 IntegralStatus;

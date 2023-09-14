@@ -411,7 +411,8 @@ UINT8   CheckStatusBU201106(UINT8 direct){
                                 TempDir = direct;
                                 SaveEvent(2); 
                                 // здесь добавляем сброс БУР
-                                CommandRs(128,direct);
+//                                CommandRs(128,direct);
+                                CommandRs(129,0);
                             }
                         }
                         StageCheckBU = 0;
@@ -1455,6 +1456,9 @@ void DisplayStatusBOS1202(unsigned char page,UINT16 deviceNumber){
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"vis t2,1ЪЪЪ");
             printf("%s",LcdBufferData);
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"vis t3,1ЪЪЪ");
+            printf("%s",LcdBufferData);
         }
         return;
     }
@@ -1497,7 +1501,7 @@ void DisplayStatusBOS1202(unsigned char page,UINT16 deviceNumber){
 //        LcdFlag.NewData = 0;
     }
 }
-void PrintStatusBosNew(unsigned char page,unsigned int index) {
+void PrintStatusBosNew1(unsigned char page,unsigned int index) {
     // выводим номер ячейки
     while(TxRunRs || TxRunLcd);
     switch(page){
@@ -1544,15 +1548,15 @@ void PrintStatusBosNew(unsigned char page,unsigned int index) {
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"page%u.t9.txt=\"Нет данных\"ЪЪЪ",page);
             printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
-//''''''''''      
-        if(page == 13){
-        // выводим состояние ИП2
+            // выводим состояние ИП2
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
             printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"page%u.t10.txt=\"Нет данных\"ЪЪЪ",page);
             printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+//''''''''''      
+        if(page == 13){
         // выводим состояние активатора
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"page%u.t4.pic=56ЪЪЪ",page); //значек ошибки
@@ -1594,14 +1598,16 @@ void PrintStatusBosNew(unsigned char page,unsigned int index) {
             while(TxRunRs || TxRunLcd);
             sprintf(LcdBufferData,"page%u.t9.txt=\"Нет данных\"ЪЪЪ",page);
             printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
-            if(page == 13){
-        // выводим состояние ИП2
+//==============================================================================
+            // выводим состояние ИП2 или основания
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
                 printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page%u.t10.txt=\"Нет данных\"ЪЪЪ",page);
-                printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+                printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);    
+//==============================================================================                
+            if(page == 13){
         // выводим состояние активатора
                 while(TxRunRs || TxRunLcd);
                 sprintf(LcdBufferData,"page%u.t4.pic=56ЪЪЪ",page); //значек ошибки
@@ -1678,6 +1684,21 @@ void PrintStatusBosNew(unsigned char page,unsigned int index) {
                     printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                     while(TxRunRs || TxRunLcd);
                     sprintf(LcdBufferData,"page%u.t9.txt=\"Дымовая камера\\rисправна\"ЪЪЪ",page);
+                    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+                }
+                if (StatusBos[index].StatusLoopRT1) {
+                    while(TxRunRs || TxRunLcd);
+                    sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
+                    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+                    while(TxRunRs || TxRunLcd);
+                    sprintf(LcdBufferData,"page%u.t10.txt=\"ИПД снят\\rс основания\"ЪЪЪ",page);
+                    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+                } else {
+                    while(TxRunRs || TxRunLcd);
+                    sprintf(LcdBufferData,"page%u.t3.pic=57ЪЪЪ",page); //значек норма
+                    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+                    while(TxRunRs || TxRunLcd);
+                    sprintf(LcdBufferData,"page%u.t10.txt=\"ИПД установлен\\rна основание\"ЪЪЪ",page);
                     printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
                 }
             }
@@ -1776,6 +1797,337 @@ void PrintStatusBosNew(unsigned char page,unsigned int index) {
         }
     }
 }
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+void PrintNoDdata(unsigned char page){
+    // выводим состояние питания
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t1.pic=56ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t8.txt=\"Нет данных\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+ //.........       
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,GREY_B);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    // выводим состояние ИП1 или дымовой камеры
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t2.pic=56ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t9.txt=\"Нет данных\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    // выводим состояние ИП2
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t10.txt=\"Нет данных\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+//''''''''''      
+    if(page == 13){
+    // выводим состояние активатора
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t4.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.txt=\"Нет данных\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+}
+void PrintNoDevice(unsigned char page){
+// выводим С.Н.
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t5.txt=\"СЕРИЙНЫЙ N XXXXXXXXX\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    // выводим состояние связи
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t0.pic=56ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t7.txt=\"Нет данных\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    PrintNoDdata(page);
+    
+}
+void PrintLossConnection(unsigned char page){
+    //.........       
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,GREY_BB);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+//.........   
+// выводим состояние связи
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t0.pic=56ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t7.txt=\"Нет связи\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    PrintNoDdata(page);
+}
+
+void PrintBos(unsigned int index){
+unsigned char page = 13;
+// выводим состояние связи
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t0.pic=57ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); 
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t7.txt=\"Связь в норме\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); 
+    // описание источника питания
+//......................... 
+    while(TxRunRs || TxRunLcd);
+    if(StatusBos[index].AlarmByte){
+        sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,RED);
+    } else {
+        if(StatusBos[index].StatusByte){
+            sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,YELOW_B);
+        }else{
+            sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,WHITE);
+        }
+    }
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+//.........................
+    if (StatusBos[index].StausPwr) {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t1.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); 
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t8.txt=\"Низкое\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); 
+    } else {
+        if (StatusBos[index].StatusReservPwr) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t1.pic=56ЪЪЪ",page); //значек ошибки
+            printf("%s",LcdBufferData);
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t8.txt=\"Резервное\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); 
+        } else {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t1.pic=57ЪЪЪ",page); //значек норма
+            printf("%s",LcdBufferData);
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t8.txt=\"Основное\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+    }
+// описание термодатчика 1
+    if (StatusBos[index].StatusLoopRT0) {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t2.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        if (StatusBos[index].StatusLoopRT0 == 1) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t9.txt=\"ИП1 обрыв\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+        if (StatusBos[index].StatusLoopRT0 == 2) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t9.txt=\"ИП1 к.з.\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+    } else {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t2.pic=57ЪЪЪ",page); //значек норма
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t9.txt=\"ИП1 исправен\\rТЕМПЕРАТУРА %dC\"ЪЪЪ",page,StatusBos[index].TemperaturaSensor[0]/10);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+// описание термодатчика 2
+    if (StatusBos[index].StatusLoopRT1) {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        if (StatusBos[index].StatusLoopRT1 == 1) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t10.txt=\"ИП1 обрыв\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+        if (StatusBos[index].StatusLoopRT1 == 2) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t10.txt=\"ИП1 к.з.\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+    } else {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t3.pic=57ЪЪЪ",page); //значек норма
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t10.txt=\"ИП2 исправен\\rТЕМПЕРАТУРА %dC\"ЪЪЪ",page,StatusBos[index].TemperaturaSensor[1]/10);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+    // описание активатора
+    if (StatusBos[index].AlarmByte != 3) {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.bco=%uЪЪЪ",page, WHITE);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.pco=%uЪЪЪ",page, BLACK);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        if (StatusBos[index].Activator) {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t4.pic=56ЪЪЪ",page); //значек ошибки
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+            if (StatusBos[index].Activator == 1) {
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page%u.t11.txt=\"Обрыв активатора\"ЪЪЪ",page);
+                printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+            }
+            if (StatusBos[index].Activator == 2) {
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page%u.t11.txt=\"К.З. активатора\"ЪЪЪ",page);
+                printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+            }
+        } else {
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t4.pic=57ЪЪЪ",page); //значек норма
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t11.txt=\"Активатор норма\"ЪЪЪ",page);
+            printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        }
+    } else {
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t4.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.bco=%uЪЪЪ",page, BORDO);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.pco=%uЪЪЪ",page, WHITE);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t11.txt=\"Пуск прошел\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+}
+void PrintIpd(unsigned int index){
+    unsigned char page = 20;
+    UnionIpdStatus TempIpdStatus;
+// выводим состояние связи
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t0.pic=57ЪЪЪ",page); //значек ошибки
+    printf("%s",LcdBufferData); 
+    while(TxRunRs || TxRunLcd);
+    sprintf(LcdBufferData,"page%u.t7.txt=\"Связь в норме\"ЪЪЪ",page);
+    printf("%s",LcdBufferData); 
+
+//......................... 
+    TempIpdStatus.StatusByte = StatusBos[index].StatusByte;
+    while(TxRunRs || TxRunLcd);
+    if(StatusBos[index].AlarmByte){
+        sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,RED);
+    } else {
+        if(TempIpdStatus.StatusByte){
+            sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,YELOW_B);
+        }else{
+            sprintf(LcdBufferData,"page%u.t6.bco=%uЪЪЪ",page,WHITE);
+        }
+    }
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+// описание источника питания    
+    if(!TempIpdStatus.StatusMainPwr && !TempIpdStatus.StausReservPwr && !TempIpdStatus.ReservPwrOn){
+        // все питание в норме резервное отключено
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t1.pic=57ЪЪЪ",page); //значек норма
+        printf("%s",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t8.txt=\"Основное норма\"ЪЪЪ",page);
+        printf("%s",LcdBufferData);
+    }else{
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t1.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData);
+        if(TempIpdStatus.ReservPwrOn){
+            // резервное включено
+            if(!TempIpdStatus.StausReservPwr){
+                // резервное норма
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page%u.t8.txt=\"Резервное норма\"ЪЪЪ",page);
+                printf("%s",LcdBufferData);
+            }else{
+                // резервное низкое
+                while(TxRunRs || TxRunLcd);
+                sprintf(LcdBufferData,"page%u.t8.txt=\"Резервное низкое\"ЪЪЪ",page);
+                printf("%s",LcdBufferData);
+            }
+        }else if(TempIpdStatus.StatusMainPwr){
+            // резервное выключено основное низкое
+            while(TxRunRs || TxRunLcd);
+            sprintf(LcdBufferData,"page%u.t8.txt=\"Основное низкое\"ЪЪЪ",page);
+            printf("%s",LcdBufferData);
+        }
+    }
+// описание дымовой камеры
+    if(TempIpdStatus.SmokeCell){
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t2.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t9.txt=\"Дымовая камера\\rнеисправна\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }else{
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t2.pic=57ЪЪЪ",page); //значек норма
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t9.txt=\"Дымовая камера\\rисправна\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+    if(TempIpdStatus.StatusTamper){
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t3.pic=56ЪЪЪ",page); //значек ошибки
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t10.txt=\"ИПД снят\\rс основания\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }else{
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t3.pic=57ЪЪЪ",page); //значек норма
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t10.txt=\"ИПД установлен\\rна основание\"ЪЪЪ",page);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    }
+}
+void PrintStatusBosNew(unsigned char page,unsigned int index) {
+    // выводим номер ячейки
+    while(TxRunRs || TxRunLcd);
+    switch(page){
+        default:
+            return;
+            break;
+        case 13:
+            sprintf(LcdBufferData,"page%u.t6.txt=\"БОС N %u\"ЪЪЪ",page,index);
+            break;
+        case 20:
+            sprintf(LcdBufferData,"page%u.t6.txt=\"ИПД N %u\"ЪЪЪ",page,index);
+            break;
+    }
+    printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+    if (!StatusBos[index].SerialNumber) {
+        // БОС НЕ ЗАРЕГИСТРИРОВАН
+        PrintNoDevice(page);
+    }else {
+        // БОС ЗАРЕГИСТРИРОВАН
+        while(TxRunRs || TxRunLcd);
+        sprintf(LcdBufferData,"page%u.t5.txt=\"СЕРИЙНЫЙ N %lu\"ЪЪЪ",page, StatusBos[index].SerialNumber);
+        printf("%s",LcdBufferData); //xprintf("%s\r",LcdBufferData);
+        if (StatusBos[index].StatusByte == 0xFF) {
+    // С БОС НЕТ СВЯЗИ
+            PrintLossConnection(page);
+        } else {
+            // СВЯЗЬ С БОС В НОРМЕ
+            if(page == 13){PrintBos(index);}else{PrintIpd(index);}
+            
+        }
+    }
+}
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 UINT8 CheckDevice(UINT16 number){
     UINT8 result = 0;
         if(StatusBos[number].ShortAddres){

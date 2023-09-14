@@ -20,7 +20,7 @@
 #include    "FunctionRS485_K.h"
 #include    "functionUART24.h"
 
-
+static UINT16 CurrentDirRs = 0;
 
 
 int main(void) {
@@ -109,9 +109,35 @@ int main(void) {
                         TempDirectRs = 0;
                     }else{
                         // передача ШВ команд
+                        
                         RsTxLength = sprintf((char*)RsTxBuffer,"? %lu %u ",0xFFFFFFFF,TempCommandRs);
                         RsTxCrc = Crc8((unsigned char*)RsTxBuffer,RsTxLength); // вычисляем контрольную сумму 
                         RsTxLength = RsTxLength + sprintf((char*)&RsTxBuffer[RsTxLength],"%u\r",RsTxCrc);
+                        while(ENTX485 || !ENTX485_I); // ожидаем окончания предыдущей передачи
+                        switch (TempCommandRs){
+                            case 128:
+                                break;
+                            case 129:
+                                
+                                while(!Interval.sec);
+                                Interval.sec = 0;
+                                while(!Interval.sec);
+                                TransmittRsPacket();
+                                while(ENTX485 || !ENTX485_I); // ожидаем окончания предыдущей передачи
+                                Interval.sec = 0;
+                                while(!Interval.sec);
+                                if(CurrentDirRs == 2){
+                                    SelectModeRs485(3);
+                                }else{
+                                    SelectModeRs485(2);
+                                }
+                                TransmittRsPacket();
+                                while(ENTX485 || !ENTX485_I); // ожидаем окончания предыдущей передачи
+                                Interval.sec = 0;
+                                while(!Interval.sec);
+                                break;
+                        }
+                        SelectModeRs485(CurrentDirRs);
                         TransmittRsPacket();
                         while(ENTX485 || !ENTX485_I); // ожидаем окончания предыдущей передачи
                     }
@@ -128,18 +154,23 @@ int main(void) {
 // изм. 05.04.22++++++++++          
                             switch(ControlFlagCP.CurrentModeRs){
                                 case 0:
-                                    SelectModeRs485(0);
+                                    CurrentDirRs = 0;
+//                                    SelectModeRs485(0);
                                     break;
                                 case 1:
-                                    SelectModeRs485(1);
+                                    CurrentDirRs = 1;
+//                                    SelectModeRs485(1);
                                     break;
                                 case 2:
-                                    SelectModeRs485(3);
+                                    CurrentDirRs = 3;
+//                                    SelectModeRs485(3);
                                     break;
                                 case 3:
-                                    SelectModeRs485(2);
+                                    CurrentDirRs = 2;
+//                                    SelectModeRs485(2);
                                     break;
                             }
+                            SelectModeRs485(CurrentDirRs);
 //++++++++++++++++++++++++                  
                             DirectControl = 1;
 //                            LcdFlag.NewData = 1;

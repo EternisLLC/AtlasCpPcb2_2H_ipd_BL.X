@@ -6,6 +6,7 @@ typedef struct {
     int _100ms :1;     
     int _1s    :1;
     int _1Sec   :1;
+    int sec     :1;
     int _lcd   :1;
     int _CheckStatusBU   :1;
     int _SoundCtrl  :1;

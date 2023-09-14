@@ -53,6 +53,7 @@ void __attribute__ ((interrupt,no_auto_psv)) _T2Interrupt (void)
         Counter100ms --;
     }else{
         Counter100ms = 9;
+        Interval.sec = 1;
         Interval._1s = 1;
         Interval._1Sec = 1;
         Interval._lcd = 1;

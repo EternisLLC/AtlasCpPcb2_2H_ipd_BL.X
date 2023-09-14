@@ -15,7 +15,7 @@
 # integer.
 APPID_VER_MAJOR = 2
 APPID_VER_MINOR = 11
-APPID_VER_BUILD = 6118
+APPID_VER_BUILD = 6176
 
 APPID_VER_BUILD_INC = 1
 
@@ -31,7 +31,7 @@ ezbl_post_build: .build-impl
 
 ifneq (,${filter default uart,${CONF}})   # Check if "default" or "uart" MPLAB project build profile is used
 	@echo EZBL: Attempting to send to bootloader via UART
-	${MP_JAVA_PATH}java -jar "${thisMakefileDir}ezbl_tools.jar" --communicator -com=COM6 -baud=115200 -timeout=1100 -artifact="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.bl2" 1>&2
+	${MP_JAVA_PATH}java -jar "${thisMakefileDir}ezbl_tools.jar" --communicator -com=COM16 -baud=115200 -timeout=1100 -artifact="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.bl2" 1>&2
 else ifneq (,${filter i2c,${CONF}})	  # Check if "i2c" MPLAB project build profile is used. If so, upload via MCP2221 I2C.
 	@echo EZBL: Attempting to send to bootloader via I2C
 	${MP_JAVA_PATH}java -jar "${thisMakefileDir}ezbl_tools.jar" --communicator -com=I2C -i2c_address=0x60 -baud=400000 -timeout=1100 -artifact="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.bl2" 1>&2
